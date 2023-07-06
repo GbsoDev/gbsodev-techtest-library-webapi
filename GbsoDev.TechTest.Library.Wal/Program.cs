@@ -1,3 +1,7 @@
+using GbsoDev.TechTest.Library.Bll;
+using GbsoDev.TechTest.Library.Wal;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +18,10 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
+	// Add dbContext
+	builder.Services.AddDbContext(builder.Configuration.GetConnectionString(Utils.CONNECTION_ROOT_NAME) ?? throw new ApplicationException("Conexión a base de datos no encontrada"));
+	// Add data acces
+	builder.Services.AddDataAcces();
 }
 
 app.UseHttpsRedirection();

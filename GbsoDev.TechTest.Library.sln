@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.Wa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.El", "GbsoDev.TechTest.Library.El\GbsoDev.TechTest.Library.El.csproj", "{DD8119F6-163C-4060-B75B-613DA15B8E23}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.Dal", "GbsoDev.TechTest.Library.Dal\GbsoDev.TechTest.Library.Dal.csproj", "{AF9568AD-4B79-4D60-9B6D-01AA44D3EFB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DD8119F6-163C-4060-B75B-613DA15B8E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD8119F6-163C-4060-B75B-613DA15B8E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD8119F6-163C-4060-B75B-613DA15B8E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9568AD-4B79-4D60-9B6D-01AA44D3EFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9568AD-4B79-4D60-9B6D-01AA44D3EFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9568AD-4B79-4D60-9B6D-01AA44D3EFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9568AD-4B79-4D60-9B6D-01AA44D3EFB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
