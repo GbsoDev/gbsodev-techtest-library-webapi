@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  gbsodev.techtest.library.wal:
+  gbsodev.techtest.library.webapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -12,8 +12,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
-      - techtest.library.database
-  techtest.library.database:
+      - gbsodev.techtest.library.database
+  gbsodev.techtest.library.database:
     container_name: techtest.sql.containter
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
