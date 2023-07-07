@@ -22,6 +22,10 @@ if (app.Environment.IsDevelopment())
 	builder.Services.AddDbContext(builder.Configuration.GetConnectionString(Utils.CONNECTION_ROOT_NAME) ?? throw new ApplicationException("Conexión a base de datos no encontrada"));
 	// Add data acces
 	builder.Services.AddDataAcces();
+	// Add service providers
+	builder.Services.AddServices();
+	// Add validation rules
+	builder.Services.AddBllValidationRulesLayer();
 }
 
 app.UseHttpsRedirection();

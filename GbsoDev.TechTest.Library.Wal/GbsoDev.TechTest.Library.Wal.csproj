@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GbsoDev.TechTest.Library.Bll\GbsoDev.TechTest.Library.Bll.csproj" />
     <ProjectReference Include="..\GbsoDev.TechTest.Library.El\GbsoDev.TechTest.Library.El.csproj" />
   </ItemGroup>
 
