@@ -12,19 +12,19 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IEditorialService EditorialService { get => editorialService.Value; }
 		private readonly Lazy<IEditorialService> editorialService;
 
-		public EditorialesController(IServiceProvider serviceProvider, Lazy<IEditorialService> noteService) : base(serviceProvider)
+		public EditorialesController(IServiceProvider serviceProvider, Lazy<IEditorialService> editorialService) : base(serviceProvider)
 		{
-			this.editorialService = noteService;
+			this.editorialService = editorialService;
 		}
 
-		[HttpGet("note")]
+		[HttpGet]
 		[ProducesResponseType(typeof(IEnumerable<EditorialModel>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Get()
 		{
 			var editoriales = EditorialService.Get();
-			var noteResults = Mapper.Map<IEnumerable<Editorial>, IEnumerable<EditorialModel>>(editoriales);
-			return new OkObjectResult(noteResults);
+			var editorialResults = Mapper.Map<IEnumerable<Editorial>, IEnumerable<EditorialModel>>(editoriales);
+			return new OkObjectResult(editorialResults);
 		}
 
 		[HttpGet("{id}")]
@@ -32,19 +32,19 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetById(int id)
 		{
-			var note = EditorialService.GetById(id);
-			var noteResult = Mapper.Map<Editorial, EditorialModel>(note);
-			return new OkObjectResult(noteResult);
+			var editorial = EditorialService.GetById(id);
+			var editorialResult = Mapper.Map<Editorial, EditorialModel>(editorial);
+			return new OkObjectResult(editorialResult);
 		}
 
-		[HttpPost("note")]
+		[HttpPost]
 		[ProducesResponseType(typeof(EditorialModel), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Post([FromBody] EditorialModel entityModel)
 		{
-			var note = Mapper.Map<EditorialModel, Editorial>(entityModel);
-			var noteResult = EditorialService.Set(note);
-			return new OkObjectResult(noteResult);
+			var editorial = Mapper.Map<EditorialModel, Editorial>(entityModel);
+			var editorialResult = Mapper.Map<Editorial, EditorialModel>(EditorialService.Set(editorial));
+			return new OkObjectResult(editorialResult);
 		}
 
 		[HttpPut()]
@@ -52,9 +52,9 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Put([FromBody] EditorialModel personModel)
 		{
-			var note = Mapper.Map<EditorialModel, Editorial>(personModel);
-			var noteResult = EditorialService.Update(note);
-			return new OkObjectResult(noteResult);
+			var editorial = Mapper.Map<EditorialModel, Editorial>(personModel);
+			var editorialResult = Mapper.Map<Editorial, EditorialModel>(EditorialService.Update(editorial));
+			return new OkObjectResult(editorialResult);
 		}
 
 		[HttpDelete("{id}")]
