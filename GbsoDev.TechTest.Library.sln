@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.Bll", "GbsoDev.TechTest.Library.Bll\GbsoDev.TechTest.Library.Bll.csproj", "{207360A1-315F-4F2D-8439-61763C02D5B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbsoDev.TechTest.Library.Mol", "GbsoDev.TechTest.Library.Mol\GbsoDev.TechTest.Library.Mol.csproj", "{9B9DC105-2583-4ECE-9EC8-AA56D5BE5B7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{207360A1-315F-4F2D-8439-61763C02D5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{207360A1-315F-4F2D-8439-61763C02D5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{207360A1-315F-4F2D-8439-61763C02D5B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B9DC105-2583-4ECE-9EC8-AA56D5BE5B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B9DC105-2583-4ECE-9EC8-AA56D5BE5B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B9DC105-2583-4ECE-9EC8-AA56D5BE5B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B9DC105-2583-4ECE-9EC8-AA56D5BE5B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

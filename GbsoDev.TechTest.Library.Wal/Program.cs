@@ -1,4 +1,7 @@
+using AutoMapper;
 using GbsoDev.TechTest.Library.Bll;
+using GbsoDev.TechTest.Library.Mol;
+using GbsoDev.TechTest.Library.Mol.ValidationRules;
 using GbsoDev.TechTest.Library.Wal;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +29,10 @@ if (app.Environment.IsDevelopment())
 	builder.Services.AddServices();
 	// Add validation rules
 	builder.Services.AddBllValidationRulesLayer();
+	// Add model validation rules
+	builder.Services.AddModelValidationRulesLayer();
+	// Add AutoMapper
+	builder.Services.AddSingleton(new MapperConfiguration(mc => mc.AddProfile(typeof(AutoMapperConfiguration))).CreateMapper());
 }
 
 app.UseHttpsRedirection();
