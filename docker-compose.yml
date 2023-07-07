@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  gbsodev.techtest.library.wal:
+    image: ${DOCKER_REGISTRY-}gbsodevtechtestlibrarywal
+    build:
+      context: .
+      dockerfile: GbsoDev.TechTest.Library.Wal/Dockerfile
