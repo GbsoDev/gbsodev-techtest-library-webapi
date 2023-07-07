@@ -43,7 +43,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IActionResult Post([FromBody] LibroModel entityModel)
 		{
 			var libro = Mapper.Map<LibroModel, Libro>(entityModel);
-			var libroResult = LibroService.Set(libro);
+			var libroResult = Mapper.Map<Libro, LibroModel>(LibroService.Set(libro));
 			return new OkObjectResult(libroResult);
 		}
 
@@ -53,7 +53,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IActionResult Put([FromBody] LibroModel autorModel)
 		{
 			var libro = Mapper.Map<LibroModel, Libro>(autorModel);
-			var libroResult = LibroService.Update(libro);
+			var libroResult = Mapper.Map<Libro, LibroModel>(LibroService.Update(libro));
 			return new OkObjectResult(libroResult);
 		}
 

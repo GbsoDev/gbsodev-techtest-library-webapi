@@ -27,7 +27,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IActionResult Post([FromBody] AutorModel entityModel)
 		{
 			var entity = Mapper.Map<AutorModel, Autor> (entityModel);
-			var entityResult = AutorService.Set(entity);
+			var entityResult =  Mapper.Map<Autor, AutorModel>(AutorService.Set(entity));
 			return new OkObjectResult(entityResult);
 		}
 
@@ -57,7 +57,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IActionResult Put([FromBody] AutorModel autorModel)
 		{
 			var entity = Mapper.Map<AutorModel, Autor>(autorModel);
-			var entityResult = AutorService.Update(entity);
+			var entityResult = Mapper.Map<Autor, AutorModel>(AutorService.Update(entity));
 			return new OkObjectResult(entityResult);
 		}
 
