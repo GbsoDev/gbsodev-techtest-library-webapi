@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  gbsodev.techtest.library.wal:
-    image: ${DOCKER_REGISTRY-}gbsodevtechtestlibrarywal
+  gbsodev.techtest.library.webapi:
+    image: ${DOCKER_REGISTRY-}gbsodev/gbsodev.techtest.library.webapi
     build:
       context: .
       dockerfile: GbsoDev.TechTest.Library.Wal/Dockerfile

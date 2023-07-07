@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  gbsodev.techtest.library.wal:
+  gbsodev.techtest.library.webapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
