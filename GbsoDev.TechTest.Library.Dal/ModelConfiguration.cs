@@ -19,9 +19,9 @@ namespace GbsoDev.TechTest.Library.Dal
 			#region libroEntity
 			var libroEntity = modelBuilder.Entity<Libro>();
 			libroEntity.ToTable("libros");
-			libroEntity.HasKey(x => x.Id).HasName("ISBN");
-			libroEntity.Property(x => x.Editorial).IsRequired();
-			libroEntity.HasOne(x=> x.Editorial).WithMany(x=> x.Libros).HasForeignKey(x=>x.EditorialId);
+			libroEntity.Property(x => x.Id).HasColumnName("ISBN");
+			libroEntity.HasKey(x => x.Id);
+			libroEntity.HasOne(x=> x.Editorial).WithMany(x=> x.Libros).HasForeignKey(x=>x.EditorialId).IsRequired();
 			libroEntity.Property(x => x.Titulo).IsRequired().HasMaxLength(45);
 			libroEntity.Property(x => x.Sinopsis).IsRequired();
 			libroEntity.Property(x => x.NPaginas).IsRequired().HasMaxLength(45);
@@ -42,6 +42,7 @@ namespace GbsoDev.TechTest.Library.Dal
 
 			#region editorialEntity
 			var editorialEntity = modelBuilder.Entity<Editorial>();
+			editorialEntity.ToTable("Editoriales");
 			editorialEntity.HasKey(x => x.Id);
 			editorialEntity.Property(x => x.Nombre).IsRequired().HasMaxLength(45);
 			editorialEntity.Property(x => x.Sede).IsRequired().HasMaxLength(45);
