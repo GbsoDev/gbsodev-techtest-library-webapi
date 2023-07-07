@@ -11,3 +11,20 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - techtest.library.database
+  techtest.library.database:
+    container_name: techtest.sql.containter
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - MSSQL_SA_PASSWORD=gbso-pw@testtech01
+      - ACCEPT_EULA=Y
+    hostname: techtest.sql.host
+    ports:
+      - 1433:1433
+    volumes:
+      - techtest-dbdata:/var/opt/mssql
+    tty: true
+volumes:
+    techtest-dbdata:
+

@@ -2,8 +2,8 @@
 {
 	public static class Utils
 	{
-		public const string CONNECTION_ROOT_NAME = "gbsodev.techtest.library.database";
-		public const string CONNECTION_MIGRATIONS_NAME = "gbsodev.techtest.library.database.migrations";
+		public const string CONNECTION_ROOT_NAME = "techtest.library.database";
+		public const string CONNECTION_MIGRATIONS_NAME = "techtest.library.database.migrations";
 		public const string FILE_CONFIGURATION_NAME = "appsettings.json";
 		public const string DEVELOPMENT_FILE_CONFIGURATION_NAME = "appsettings.Development.json";
 
