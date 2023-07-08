@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Dal
 			#region libroEntity
 			var libroEntity = modelBuilder.Entity<Libro>();
 			libroEntity.ToTable("libros");
-			libroEntity.Property(x => x.Id).HasColumnName("ISBN");
+			libroEntity.Property(x => x.Id).HasColumnType("numeric(10, 0)").ValueGeneratedNever().HasColumnName("ISBN");
 			libroEntity.HasKey(x => x.Id);
 			libroEntity.HasOne(x=> x.Editorial).WithMany(x=> x.Libros).HasForeignKey(x=>x.EditorialId).IsRequired();
 			libroEntity.Property(x => x.Titulo).IsRequired().HasMaxLength(45);

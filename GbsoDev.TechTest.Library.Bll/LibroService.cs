@@ -4,7 +4,7 @@ using GbsoDev.TechTest.Library.El;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal sealed class LibroService : EntityBaseService<Libro, int, ILibroDal>, ILibroService
+	internal sealed class LibroService : EntityBaseService<Libro, long, ILibroDal>, ILibroService
 	{
 		public ILibroDal LibroDal { get=> libroDal.Value; }
 		public Lazy<ILibroDal> libroDal;
@@ -14,7 +14,7 @@ namespace GbsoDev.TechTest.Library.Bll
 			this.libroDal = noteDal;
 		}
 
-		public List<Libro> GetByAutorId(int id)
+		public List<Libro> GetByAutorId(long id)
 		{
 			return this.LibroDal.ListLibrosByAutorId(id);
 		}

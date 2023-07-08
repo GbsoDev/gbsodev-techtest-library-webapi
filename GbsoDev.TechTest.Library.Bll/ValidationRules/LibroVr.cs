@@ -8,13 +8,9 @@ namespace GbsoDev.TechTest.Library.Bll.ValidationRules
 	{
 		public LibroVr()
 		{
-			RuleSet(VrRuleSets.UPDATE, () =>
-			{
-				RuleFor(n => n.Id)
-					.NotEmpty()
-					.Must(n => n > 0);
-			});
-
+			RuleFor(n => n.Id)
+				.NotEmpty()
+				.Must(n => n.ToString().Length == 10);
 			RuleFor(n => n.Titulo)
 				.NotNull().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyNull, nameof(n.Titulo)));
 			RuleFor(n => n.Sinopsis)

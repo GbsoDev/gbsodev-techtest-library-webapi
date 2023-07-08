@@ -2,8 +2,8 @@
 
 namespace GbsoDev.TechTest.Library.Bll.Contracts
 {
-	public interface ILibroService : IEntityBaseService<Libro, int>
+	public interface ILibroService : IEntityBaseService<Libro, long>
 	{
-		List<Libro> GetByAutorId(int id);
+		List<Libro> GetByAutorId(long id);
 	}
 }

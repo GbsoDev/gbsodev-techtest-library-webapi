@@ -30,7 +30,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[HttpGet("{id}")]
 		[ProducesResponseType(typeof(LibroModel), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult GetById(int id)
+		public IActionResult GetById(long id)
 		{
 			var libro = LibroService.GetById(id);
 			var libroResult = Mapper.Map<Libro, LibroModel>(libro);
@@ -60,7 +60,7 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[HttpDelete("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Delete(int id)
+		public IActionResult Delete(long id)
 		{
 			LibroService.DeleteById(id);
 			return new OkResult();

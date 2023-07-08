@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 12, 38, 8, 760, DateTimeKind.Local).AddTicks(1362))
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 17, 14, 28, 20, DateTimeKind.Local).AddTicks(1178))
                 },
                 constraints: table =>
                 {
@@ -45,8 +45,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                 name: "libros",
                 columns: table => new
                 {
-                    ISBN = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ISBN = table.Column<decimal>(type: "numeric(10,0)", nullable: false),
                     EditorialId = table.Column<int>(type: "int", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Sinopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -69,7 +68,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                 columns: table => new
                 {
                     autores_id = table.Column<int>(type: "int", nullable: false),
-                    libros_ISBN = table.Column<int>(type: "int", nullable: false)
+                    libros_ISBN = table.Column<decimal>(type: "numeric(10,0)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -6,9 +6,9 @@ namespace GbsoDev.TechTest.Library.El
 	/// <summary>
 	/// Entidad para libros
 	/// </summary>
-	public class Libro : IEntity<int>
+	public class Libro : IEntity<long>
 	{
-		public int Id { get; set; }
+		public long Id { get; set; }
 		/// <summary>
 		/// Clave de identidad de la editorial
 		/// </summary>

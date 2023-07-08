@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GbsoDev.TechTest.Library.Dal.Migrations
 {
     [DbContext(typeof(RootContext))]
-    [Migration("20230708173808_initianl-migration")]
+    [Migration("20230708221428_initianl-migration")]
     partial class initianlmigration
     {
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 8, 12, 38, 8, 760, DateTimeKind.Local).AddTicks(1362));
+                        .HasDefaultValue(new DateTime(2023, 7, 8, 17, 14, 28, 20, DateTimeKind.Local).AddTicks(1178));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -82,12 +82,9 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
 
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.Libro", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                    b.Property<decimal>("Id")
+                        .HasColumnType("numeric(10, 0)")
                         .HasColumnName("ISBN");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -122,8 +119,8 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     b.Property<int>("autores_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("libros_ISBN")
-                        .HasColumnType("int");
+                    b.Property<decimal>("libros_ISBN")
+                        .HasColumnType("numeric(10,0)");
 
                     b.HasKey("autores_id", "libros_ISBN");
 

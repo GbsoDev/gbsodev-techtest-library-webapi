@@ -2,8 +2,8 @@
 
 namespace GbsoDev.TechTest.Library.Dal.Contracts
 {
-	public interface ILibroDal : IBaseDataAccesLayer<Libro, int>
+	public interface ILibroDal : IBaseDataAccesLayer<Libro, long>
 	{
-		List<Libro> ListLibrosByAutorId(int id);
+		List<Libro> ListLibrosByAutorId(long id);
 	}
 }
