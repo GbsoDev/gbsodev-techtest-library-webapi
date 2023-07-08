@@ -25,12 +25,21 @@ builder.Services.AddBllValidationRulesLayer();
 builder.Services.AddModelValidationRulesLayer();
 // Add AutoMapper
 builder.Services.AddSingleton(new MapperConfiguration(mc => mc.AddProfile(typeof(AutoMapperConfiguration))).CreateMapper());
-
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(builder =>
+	{
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader();
+	});
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+	app.UseCors();
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
