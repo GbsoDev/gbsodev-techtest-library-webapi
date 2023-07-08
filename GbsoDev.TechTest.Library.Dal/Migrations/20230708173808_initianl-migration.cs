@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GbsoDev.TechTest.Library.Dal.Migrations
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class initianlmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 7, 9, 29, 24, 560, DateTimeKind.Local).AddTicks(5956))
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 12, 38, 8, 760, DateTimeKind.Local).AddTicks(1362))
                 },
                 constraints: table =>
                 {

@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "gbsodev.techtest.library.webapi",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "serviceActions": {
+        "gbsodev.techtest.library.database": "StartWithoutDebugging",
+        "gbsodev.techtest.library.webapi": "StartDebugging"
+      }
+    }
+  }
+}

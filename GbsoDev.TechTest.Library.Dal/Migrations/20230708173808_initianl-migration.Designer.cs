@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GbsoDev.TechTest.Library.Dal.Migrations
 {
     [DbContext(typeof(RootContext))]
-    [Migration("20230707142924_initial-migration")]
-    partial class initialmigration
+    [Migration("20230708173808_initianl-migration")]
+    partial class initianlmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 7, 9, 29, 24, 560, DateTimeKind.Local).AddTicks(5956));
+                        .HasDefaultValue(new DateTime(2023, 7, 8, 12, 38, 8, 760, DateTimeKind.Local).AddTicks(1362));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
