@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 23, 31, 4, 509, DateTimeKind.Local).AddTicks(4329))
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 9, 15, 53, 26, 312, DateTimeKind.Local).AddTicks(4094))
                 },
                 constraints: table =>
                 {
@@ -42,10 +42,26 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "libros",
                 columns: table => new
                 {
-                    ISBN = table.Column<decimal>(type: "numeric(10,0)", nullable: false),
+                    ISBN = table.Column<decimal>(type: "numeric(13,0)", nullable: false),
                     EditorialId = table.Column<int>(type: "int", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Sinopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -70,7 +86,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     autores_id = table.Column<int>(type: "int", nullable: false),
-                    libros_ISBN = table.Column<decimal>(type: "numeric(10,0)", nullable: false)
+                    libros_ISBN = table.Column<decimal>(type: "numeric(13,0)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,6 +127,9 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
         {
             migrationBuilder.DropTable(
                 name: "autores_has_libros");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "autores");

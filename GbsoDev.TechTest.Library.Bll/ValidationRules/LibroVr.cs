@@ -12,7 +12,7 @@ namespace GbsoDev.TechTest.Library.Bll.ValidationRules
 			{
 				RuleFor(n => n.Id)
 				.NotEmpty()
-				.Must(n => n.ToString().Length == 10);
+				.Must(n => n.ToString().Length == 13);
 				RuleFor(n => n.Titulo)
 					.NotNull().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyNull, nameof(n.Titulo)));
 				RuleFor(n => n.Sinopsis)

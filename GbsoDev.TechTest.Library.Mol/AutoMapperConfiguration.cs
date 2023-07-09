@@ -43,6 +43,15 @@ namespace GbsoDev.TechTest.Library.Mol
 				.ForMember(x => x.Sede, m => m.MapFrom(y => y.Sede))
 				.ReverseMap();
 			#endregion
+			#region Auth
+			CreateMap<User, UserModel>()
+				.ForMember(x => x.Id, m => m.MapFrom(y => y.Id))
+				.ForMember(x => x.Nombre, m => m.MapFrom(y => y.Nombre))
+				.ForMember(x => x.UserName, m => m.MapFrom(y => y.UserName))
+				.ForMember(x => x.Password, m => m.Ignore())
+				.ReverseMap()
+				.ForMember(x => x.Password, m => m.MapFrom(y=> y.Password));
+			#endregion
 		}
 	}
 }

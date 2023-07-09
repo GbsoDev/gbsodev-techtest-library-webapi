@@ -39,7 +39,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 8, 23, 31, 4, 509, DateTimeKind.Local).AddTicks(4329));
+                        .HasDefaultValue(new DateTime(2023, 7, 9, 15, 53, 26, 312, DateTimeKind.Local).AddTicks(4094));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -64,7 +64,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .HasColumnName("autores_id");
 
                     b.Property<decimal>("LibroId")
-                        .HasColumnType("numeric(10,0)")
+                        .HasColumnType("numeric(13,0)")
                         .HasColumnName("libros_ISBN");
 
                     b.HasKey("Id");
@@ -106,7 +106,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.Libro", b =>
                 {
                     b.Property<decimal>("Id")
-                        .HasColumnType("numeric(10, 0)")
+                        .HasColumnType("numeric(13, 0)")
                         .HasColumnName("ISBN");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -135,6 +135,36 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     b.HasIndex("EditorialId");
 
                     b.ToTable("libros", (string)null);
+                });
+
+            modelBuilder.Entity("GbsoDev.TechTest.Library.El.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.AutorHasLibro", b =>

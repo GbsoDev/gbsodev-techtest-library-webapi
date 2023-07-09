@@ -11,7 +11,7 @@ namespace GbsoDev.TechTest.Library.El
 		/// <summary>
 		/// ´Nombre del libro
 		/// </summary>
-		public string? Name { get; set; }
+		public string? Nombre { get; set; }
 		/// <summary>
 		/// Nombre de usuario del libro
 		/// </summary>
