@@ -53,7 +53,8 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		public IActionResult Put([FromBody] LibroModel autorModel)
 		{
 			var libro = Mapper.Map<LibroModel, Libro>(autorModel);
-			var libroResult = Mapper.Map<Libro, LibroModel>(LibroService.Update(libro));
+			var updated = LibroService.Update(libro);
+			var libroResult = Mapper.Map<Libro, LibroModel>(updated);
 			return new OkObjectResult(libroResult);
 		}
 

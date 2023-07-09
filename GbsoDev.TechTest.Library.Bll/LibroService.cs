@@ -1,22 +1,21 @@
-﻿using GbsoDev.TechTest.Library.Bll.Contracts;
+﻿using FluentValidation;
+using GbsoDev.TechTest.Library.Bll.Contracts;
+using GbsoDev.TechTest.Library.Bll.ValidationRules;
 using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
+using GbsoDev.TechTest.Library.El.Contracts;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
 	internal sealed class LibroService : EntityBaseService<Libro, long, ILibroDal>, ILibroService
 	{
-		public ILibroDal LibroDal { get=> libroDal.Value; }
-		public Lazy<ILibroDal> libroDal;
-
-		public LibroService(IServiceProvider serviceProvider, Lazy<ILibroDal> noteDal) : base(serviceProvider)
+		public LibroService(IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-			this.libroDal = noteDal;
 		}
 
 		public List<Libro> GetByAutorId(long id)
 		{
-			return this.LibroDal.ListLibrosByAutorId(id);
+			return this.MainDal.ListLibrosByAutorId(id);
 		}
 	}
 }

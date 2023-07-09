@@ -39,7 +39,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 8, 17, 14, 28, 20, DateTimeKind.Local).AddTicks(1178));
+                        .HasDefaultValue(new DateTime(2023, 7, 8, 23, 31, 4, 509, DateTimeKind.Local).AddTicks(4329));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -49,6 +49,32 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("autores", (string)null);
+                });
+
+            modelBuilder.Entity("GbsoDev.TechTest.Library.El.AutorHasLibro", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AutorId")
+                        .HasColumnType("int")
+                        .HasColumnName("autores_id");
+
+                    b.Property<decimal>("LibroId")
+                        .HasColumnType("numeric(10,0)")
+                        .HasColumnName("libros_ISBN");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LibroId");
+
+                    b.HasIndex("AutorId", "LibroId")
+                        .IsUnique();
+
+                    b.ToTable("autores_has_libros", (string)null);
                 });
 
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.Editorial", b =>
@@ -111,19 +137,23 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     b.ToTable("libros", (string)null);
                 });
 
-            modelBuilder.Entity("autores_has_libros", b =>
+            modelBuilder.Entity("GbsoDev.TechTest.Library.El.AutorHasLibro", b =>
                 {
-                    b.Property<int>("autores_id")
-                        .HasColumnType("int");
+                    b.HasOne("GbsoDev.TechTest.Library.El.Autor", "Autor")
+                        .WithMany("AutorHasLibros")
+                        .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<decimal>("libros_ISBN")
-                        .HasColumnType("numeric(10,0)");
+                    b.HasOne("GbsoDev.TechTest.Library.El.Libro", "Libro")
+                        .WithMany("LibroHasAutores")
+                        .HasForeignKey("LibroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("autores_id", "libros_ISBN");
+                    b.Navigation("Autor");
 
-                    b.HasIndex("libros_ISBN");
-
-                    b.ToTable("autores_has_libros", (string)null);
+                    b.Navigation("Libro");
                 });
 
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.Libro", b =>
@@ -137,24 +167,19 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                     b.Navigation("Editorial");
                 });
 
-            modelBuilder.Entity("autores_has_libros", b =>
+            modelBuilder.Entity("GbsoDev.TechTest.Library.El.Autor", b =>
                 {
-                    b.HasOne("GbsoDev.TechTest.Library.El.Autor", null)
-                        .WithMany()
-                        .HasForeignKey("autores_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GbsoDev.TechTest.Library.El.Libro", null)
-                        .WithMany()
-                        .HasForeignKey("libros_ISBN")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AutorHasLibros");
                 });
 
             modelBuilder.Entity("GbsoDev.TechTest.Library.El.Editorial", b =>
                 {
                     b.Navigation("Libros");
+                });
+
+            modelBuilder.Entity("GbsoDev.TechTest.Library.El.Libro", b =>
+                {
+                    b.Navigation("LibroHasAutores");
                 });
 #pragma warning restore 612, 618
         }

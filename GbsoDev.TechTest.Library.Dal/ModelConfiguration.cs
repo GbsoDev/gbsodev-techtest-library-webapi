@@ -25,19 +25,22 @@ namespace GbsoDev.TechTest.Library.Dal
 			libroEntity.Property(x => x.Titulo).IsRequired().HasMaxLength(45);
 			libroEntity.Property(x => x.Sinopsis).IsRequired();
 			libroEntity.Property(x => x.NPaginas).IsRequired().HasMaxLength(45);
-			libroEntity.HasMany(l => l.Autores)
-			.WithMany(a => a.Libros)
-			.UsingEntity<Dictionary<string, object>>(
-				"autores_has_libros",
-				x => x.HasOne<Autor>().WithMany().HasForeignKey("autores_id"),
-				x => x.HasOne<Libro>().WithMany().HasForeignKey("libros_ISBN"),
-				x =>
-				{
-					x.ToTable("autores_has_libros");
-					x.HasKey("autores_id", "libros_ISBN");
-				}
-			);
+			#endregion
 
+			#region relación muchos a muchos autor libro
+			var autorHasLibroEntity = modelBuilder.Entity<AutorHasLibro>();
+			autorHasLibroEntity.ToTable("autores_has_libros");
+			autorHasLibroEntity.HasKey(x => x.Id);
+			autorHasLibroEntity.Property(x => x.AutorId).HasColumnName("autores_id");
+			autorHasLibroEntity.HasOne(x => x.Autor).WithMany(x=> x.AutorHasLibros)
+				.HasForeignKey(x=> x.AutorId)
+				.IsRequired();
+			autorHasLibroEntity.Property(x => x.LibroId).HasColumnName("libros_ISBN");
+			autorHasLibroEntity.HasOne(x => x.Libro).WithMany(x => x.LibroHasAutores)
+				.HasForeignKey(x => x.LibroId)
+				.IsRequired();
+			autorHasLibroEntity.HasIndex(x => new { x.AutorId, x.LibroId}).IsUnique();
+			autorHasLibroEntity.Ignore(x => x.CreatedDate);
 			#endregion
 
 			#region editorialEntity

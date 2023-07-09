@@ -17,14 +17,19 @@ namespace GbsoDev.TechTest.Library.El
 		/// Apellidos del autor
 		/// </summary>
 		public string? Apellidos { get; set; }
+		///// <summary>
+		///// Libros escritos por el autor
+		///// </summary>
+		//public List<Libro> Libros { get; set; }
 		/// <summary>
-		/// Libros escritos por el autor
+		/// 
 		/// </summary>
-		public List<Libro> Libros { get; set; }
+		public List<AutorHasLibro> AutorHasLibros { get; set; }
 		public DateTime? CreatedDate { get; set; }
 		public Autor()
 		{
-			Libros = new List<Libro>();
+			AutorHasLibros = new List<AutorHasLibro>();
+			//Libros = new List<Libro>();
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 17, 14, 28, 20, DateTimeKind.Local).AddTicks(1178))
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 8, 23, 31, 4, 509, DateTimeKind.Local).AddTicks(4329))
                 },
                 constraints: table =>
                 {
@@ -67,12 +67,14 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                 name: "autores_has_libros",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     autores_id = table.Column<int>(type: "int", nullable: false),
                     libros_ISBN = table.Column<decimal>(type: "numeric(10,0)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_autores_has_libros", x => new { x.autores_id, x.libros_ISBN });
+                    table.PrimaryKey("PK_autores_has_libros", x => x.Id);
                     table.ForeignKey(
                         name: "FK_autores_has_libros_autores_autores_id",
                         column: x => x.autores_id,
@@ -86,6 +88,12 @@ namespace GbsoDev.TechTest.Library.Dal.Migrations
                         principalColumn: "ISBN",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_autores_has_libros_autores_id_libros_ISBN",
+                table: "autores_has_libros",
+                columns: new[] { "autores_id", "libros_ISBN" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_autores_has_libros_libros_ISBN",

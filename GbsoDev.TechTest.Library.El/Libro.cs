@@ -29,14 +29,16 @@ namespace GbsoDev.TechTest.Library.El
 		/// Páginas del libro
 		/// </summary>
 		public string? NPaginas { get; set; }
-		/// <summary>
-		/// Autores del libro
-		/// </summary>
-		public List<Autor> Autores { get; set; }
+		///// <summary>
+		///// LibroHasAutores del libro
+		///// </summary>
+		//virtual public List<Autor> LibroHasAutores { get; set; }
+		public List<AutorHasLibro> LibroHasAutores { get; set; }
 		public DateTime? CreatedDate { get; set; }
 		public Libro()
 		{
-			this.Autores = new List<Autor>();
+			//this.LibroHasAutores = new List<Autor>();
+			LibroHasAutores = new List<AutorHasLibro>();
 		}
 	}
 }

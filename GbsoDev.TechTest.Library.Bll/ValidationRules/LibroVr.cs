@@ -15,7 +15,7 @@ namespace GbsoDev.TechTest.Library.Bll.ValidationRules
 				.NotNull().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyNull, nameof(n.Titulo)));
 			RuleFor(n => n.Sinopsis)
 				.NotEmpty().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.Sinopsis)));
-			RuleFor(n => n.Autores)
+			RuleFor(n => n.LibroHasAutores)
 				.NotNull().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.EditorialId)))
 				.Must(x => x.Count > 0).WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.EditorialId)));
 			RuleFor(n => n.EditorialId)

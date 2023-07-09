@@ -7,6 +7,7 @@ namespace GbsoDev.TechTest.Library.Dal
 	{
 		public DbSet<Autor> Autores { get; set; }
 		public DbSet<Libro> Libros { get; set; }
+		public DbSet<AutorHasLibro> AutorHasLibros { get; set; }
 		public DbSet<Editorial> Editoriales { get; set; }
 
 		public RootContext(DbContextOptions<RootContext> options) : base(options)
