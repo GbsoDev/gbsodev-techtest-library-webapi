@@ -50,9 +50,9 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[HttpPut]
 		[ProducesResponseType(typeof(LibroModel), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Put([FromBody] LibroModel autorModel)
+		public IActionResult Put([FromBody] LibroModel libroModel)
 		{
-			var libro = Mapper.Map<LibroModel, Libro>(autorModel);
+			var libro = Mapper.Map<LibroModel, Libro>(libroModel);
 			var updated = LibroService.Update(libro);
 			var libroResult = Mapper.Map<Libro, LibroModel>(updated);
 			return new OkObjectResult(libroResult);

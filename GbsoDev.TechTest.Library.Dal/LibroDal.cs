@@ -15,7 +15,6 @@ namespace GbsoDev.TechTest.Library.Dal
 		public override Libro Register(Libro entity)
 		{
 			RootContext.Libros.Add(entity);
-			RootContext.AutorHasLibros.AddRange(entity.LibroHasAutores);
 			RootContext.SaveChanges();
 			return entity;
 		}
