@@ -13,7 +13,8 @@ namespace GbsoDev.TechTest.Library.Bll
 		public static IServiceCollection AddServices(this IServiceCollection services)
 		{
 			return services
-				.AddSingleton<IAuthService, AuthService>()
+				.AddScoped<IAuthService, AuthService>()
+				.AddScoped(serviceProvider => new Lazy<IAuthService>(() => serviceProvider.GetRequiredService<IAuthService>()))
 				.AddScoped<IAutorService, AutorService>()
 				.AddScoped(serviceProvider => new Lazy<IAutorService>(() => serviceProvider.GetRequiredService<IAutorService>()))
 				.AddScoped<ILibroService, LibroService>()

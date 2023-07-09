@@ -1,6 +1,11 @@
-﻿namespace GbsoDev.TechTest.Library.Mol
+﻿using GbsoDev.TechTest.Library.El.Contracts;
+
+namespace GbsoDev.TechTest.Library.El
 {
-	public class UserModel
+	/// <summary>
+	/// Entidad para Usuarios
+	/// </summary>
+	public class Usuario : IEntity<int>
 	{
 		public int Id { get; set; }
 		/// <summary>

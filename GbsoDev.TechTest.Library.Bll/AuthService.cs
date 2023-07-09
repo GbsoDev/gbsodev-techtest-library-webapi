@@ -12,16 +12,16 @@ using System.Text;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal sealed class AuthService : EntityBaseService<User, int, IUserDal>, IAuthService
+	internal sealed class AuthService : EntityBaseService<Usuario, int, IUserDal>, IAuthService
 	{
 		private AppSettings AppSettings { get; }
 
-		public AuthService(IServiceProvider serviceProvider, IOptions<AppSettings> appSettings) : base(serviceProvider)
+		public AuthService(IServiceProvider serviceProvider, AppSettings appSettings) : base(serviceProvider)
 		{
-			AppSettings = appSettings.Value;
+			AppSettings = appSettings;
 		}
 
-		public AuthResponse? ValidateLogin(User user)
+		public AuthResponse? ValidateLogin(Usuario user)
 		{
 			if (!string.IsNullOrWhiteSpace(user.UserName) && !string.IsNullOrWhiteSpace(user.Password))
 			{
@@ -40,7 +40,7 @@ namespace GbsoDev.TechTest.Library.Bll
 			return null;
 		}
 
-		private string GenerateToken(DateTime startDateTime, User user, DateTime expireDateTime)
+		private string GenerateToken(DateTime startDateTime, Usuario user, DateTime expireDateTime)
 		{
 
 			var claims = new List<Claim>()

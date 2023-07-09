@@ -1,10 +1,12 @@
 ﻿using GbsoDev.TechTest.Library.Bll.Contracts;
 using GbsoDev.TechTest.Library.El;
 using GbsoDev.TechTest.Library.Mol;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GbsoDev.TechTest.Library.Wal.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[Route("api/[Controller]")]
 	public class LibrosController : BaseController

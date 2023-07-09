@@ -8,7 +8,7 @@ namespace GbsoDev.TechTest.Library.Mol
 {
 	public class AuthModel
 	{
-		public string? Name { get; set; }
+		public string? Nombre { get; set; }
 		/// <summary>
 		/// Nombre de usuario del libro
 		/// </summary>

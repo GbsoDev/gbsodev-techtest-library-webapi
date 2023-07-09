@@ -9,8 +9,9 @@ namespace GbsoDev.TechTest.Library.Bll
     {
         public static IServiceCollection AddBllValidationRulesLayer(this IServiceCollection services)
         {
+            services.AddSingleton<IValidator<Usuario>, UserVr>();
             services.AddSingleton<IValidator<Autor>, AutorVr>();
-            services.AddSingleton<IValidator<Libro>, LibroVr>();
+			services.AddSingleton<IValidator<Libro>, LibroVr>();
             services.AddSingleton<IValidator<Editorial>, EditorialVr>();
             return services;
         }

@@ -44,8 +44,7 @@ namespace GbsoDev.TechTest.Library.Mol
 				.ReverseMap();
 			#endregion
 			#region Auth
-			CreateMap<User, UserModel>()
-				.ForMember(x => x.Id, m => m.MapFrom(y => y.Id))
+			CreateMap<Usuario, AuthModel>()
 				.ForMember(x => x.Nombre, m => m.MapFrom(y => y.Nombre))
 				.ForMember(x => x.UserName, m => m.MapFrom(y => y.UserName))
 				.ForMember(x => x.Password, m => m.Ignore())

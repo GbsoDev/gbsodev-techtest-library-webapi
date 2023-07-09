@@ -2,7 +2,7 @@
 
 namespace GbsoDev.TechTest.Library.Dal.Contracts
 {
-	public interface IUserDal : IBaseDataAccesLayer<User, int>
+	public interface IUserDal : IBaseDataAccesLayer<Usuario, int>
 	{
 		bool ValidateUser(string userName, string encript);
 	}

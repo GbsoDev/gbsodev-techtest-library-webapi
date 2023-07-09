@@ -7,21 +7,20 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 {
 	[ApiController]
 	[Route("api/[Controller]")]
-	public class authController : BaseController
+	public class AuthController : BaseController
 	{
-		private IAuthService AuthService => authService.Value;
-		private readonly Lazy<IAuthService> authService;
+		private IAuthService AuthService;
 
-		public authController(IServiceProvider serviceProvider, Lazy<IAuthService> authService) : base(serviceProvider)
+		public AuthController(IServiceProvider serviceProvider, IAuthService authService) : base(serviceProvider)
 		{
-			this.authService = authService;
+			this.AuthService = authService;
 		}
 		[HttpPost]
 		[ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Post([FromBody] AuthModel authModel)
 		{
-			var Auth = Mapper.Map<AuthModel, User>(authModel);
+			var Auth = Mapper.Map<AuthModel, Usuario>(authModel);
 
 			var authResult = AuthService.ValidateLogin(Auth);
 			if(authResult != null)

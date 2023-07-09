@@ -1,5 +1,6 @@
 using AutoMapper;
 using GbsoDev.TechTest.Library.Bll;
+using GbsoDev.TechTest.Library.El;
 using GbsoDev.TechTest.Library.Mol;
 using GbsoDev.TechTest.Library.Wal;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// add app settings
-builder.Services.AddSetting(builder.Configuration);
 // Add dbContext
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString(Utils.CONNECTION_ROOT_NAME) ?? throw new ApplicationException("Conexión a base de datos no encontrada"));
+// add app settings
+builder.Services.AddSettings(builder.Configuration, out AppSettings appSettings);
+// add JWT app authentication
+builder.Services.AddAuthentication(builder.Configuration, appSettings);
 // Add data acces
 builder.Services.AddDataAcces();
 // Add service providers
@@ -44,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

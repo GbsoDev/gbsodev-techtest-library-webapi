@@ -2,8 +2,8 @@
 
 namespace GbsoDev.TechTest.Library.Bll.Contracts
 {
-	public interface IAuthService : IEntityBaseService<User, int>
+	public interface IAuthService : IEntityBaseService<Usuario, int>
 	{
-		AuthResponse? ValidateLogin(User user);
+		AuthResponse? ValidateLogin(Usuario user);
 	}
 }

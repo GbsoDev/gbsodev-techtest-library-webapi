@@ -54,7 +54,7 @@ namespace GbsoDev.TechTest.Library.Dal
 			#endregion
 
 			#region auth
-			var authEntity = modelBuilder.Entity<User>();
+			var authEntity = modelBuilder.Entity<Usuario>();
 			authEntity.ToTable("Usuarios");
 			authEntity.HasKey(x => x.Id);
 			authEntity.Property(x => x.Nombre).IsRequired().HasMaxLength(20);

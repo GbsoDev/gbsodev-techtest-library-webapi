@@ -5,7 +5,7 @@ namespace GbsoDev.TechTest.Library.Dal
 {
 	public class RootContext : DbContext
 	{
-		public DbSet<User> Usuarios { get; set; }
+		public DbSet<Usuario> Usuarios { get; set; }
 		public DbSet<Autor> Autores { get; set; }
 		public DbSet<Libro> Libros { get; set; }
 		public DbSet<AutorHasLibro> AutorHasLibros { get; set; }

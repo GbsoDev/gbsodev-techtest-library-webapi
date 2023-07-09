@@ -11,6 +11,8 @@ namespace GbsoDev.TechTest.Library.Dal
 		public static IServiceCollection AddDataAcces(this IServiceCollection services)
 		{
 			return services
+				.AddScoped<IUserDal, UserDal>()
+				.AddScoped(serviceProvider => new Lazy<IUserDal>(() => serviceProvider.GetRequiredService<IUserDal>()))
 				.AddScoped<ILibroDal, LibroDal>()
 				.AddScoped(serviceProvider => new Lazy<ILibroDal>(() => serviceProvider.GetRequiredService<ILibroDal>()))
 				.AddScoped<IAutorDal, AutorDal>()
