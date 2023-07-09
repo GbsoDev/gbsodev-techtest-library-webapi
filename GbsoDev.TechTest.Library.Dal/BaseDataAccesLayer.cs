@@ -1,7 +1,12 @@
 ﻿using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El.Contracts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
@@ -65,6 +70,25 @@ namespace GbsoDev.TechTest.Library.Dal
 		{
 			RootContext.Remove(entity);
 			RootContext.SaveChanges();
+		}
+
+
+		public void LoadProperty<TEn, TProperty>(TEn entity, Expression<Func<TEn, TProperty?>> propertyExpression) where TProperty : class
+		{
+			if (entity != null && propertyExpression != null)
+			{
+				var propertyName = ((MemberExpression)propertyExpression.Body).Member.Name;
+				RootContext.Entry(entity).Reference(propertyName).Load();
+			}
+		}
+
+		public void LoadCollection<TEn, TProperty>(TEn entity, Expression<Func<TEn, TProperty?>> propertyExpression) where TProperty : ICollection where TEn : class
+		{
+			if (entity != null && propertyExpression != null)
+			{
+				var propertyName = ((MemberExpression)propertyExpression.Body).Member.Name;
+				RootContext.Entry(entity).Collection(propertyName).Load();
+			}
 		}
 	}
 }

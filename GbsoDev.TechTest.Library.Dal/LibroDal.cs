@@ -1,6 +1,5 @@
 ﻿using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
-using GbsoDev.TechTest.Library.El.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace GbsoDev.TechTest.Library.Dal
@@ -12,33 +11,28 @@ namespace GbsoDev.TechTest.Library.Dal
 		{
 		}
 
-		public override Libro Register(Libro entity)
-		{
-			RootContext.Libros.Add(entity);
-			RootContext.SaveChanges();
-			return entity;
-		}
-
 		public override Libro? GetById(long id)
 		{
-			var result = RootContext.Libros
-				.Include(x => x.LibroHasAutores)
-				.ThenInclude(x => x.Autor)
-				.FirstOrDefault(x=> x.Id == id);
+			var result = base.GetById(id);
+			if (result != null)
+			{
+				var entry = RootContext.Entry(result);
+				entry.Reference(x => x.Editorial).Load();
+				entry.Collection(x => x.LibroHasAutores).Query().Include(x => x.Autor).Load();
+			}
 			return result;
 		}
 
 		public override Libro Update(Libro entity)
 		{
-			var entityResult = RootContext.Libros
-				.Include(x => x.LibroHasAutores).FirstOrDefault(x => x.Id == entity.Id);
+			var entityResult = base.GetById(entity.Id);
 			if (entityResult != null)
 			{
+				var entry = RootContext.Entry(entityResult);
+				entry.Collection(x => x.LibroHasAutores).Load();
 				entityResult.LibroHasAutores.Clear();
-				RootContext.SaveChanges();
-
 				entity.CreatedDate = entityResult.CreatedDate;
-				RootContext.Entry(entityResult).CurrentValues.SetValues(entity);
+				entry.CurrentValues.SetValues(entity);
 				entityResult.LibroHasAutores.AddRange(entity.LibroHasAutores);
 				RootContext.SaveChanges();
 			};

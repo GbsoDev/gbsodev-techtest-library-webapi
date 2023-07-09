@@ -13,6 +13,11 @@ namespace GbsoDev.TechTest.Library.Bll
 		{
 		}
 
+		/// <summary>
+		/// lista los libros de un autor
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public List<Libro> GetByAutorId(long id)
 		{
 			return this.MainDal.ListLibrosByAutorId(id);

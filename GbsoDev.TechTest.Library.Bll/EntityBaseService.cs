@@ -33,7 +33,7 @@ namespace GbsoDev.TechTest.Library.Bll
 		
 		public virtual TEntity Set(TEntity entity)
 		{
-			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.SET));
+			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.ALL, VrRuleSets.SET));
 			if (!validate.IsValid)
 			{
 				throw new ValidationException(validate.Errors);
@@ -43,7 +43,7 @@ namespace GbsoDev.TechTest.Library.Bll
 		
 		public virtual TEntity Update(TEntity entity)
 		{
-			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.UPDATE));
+			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.ALL, VrRuleSets.UPDATE));
 			if (!validate.IsValid)
 			{
 				throw new ValidationException(validate.Errors);
@@ -53,7 +53,7 @@ namespace GbsoDev.TechTest.Library.Bll
 		
 		public virtual void Delete(TEntity entity)
 		{
-			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.DELETE));
+			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.ALL, VrRuleSets.DELETE));
 			if (!validate.IsValid)
 			{
 				throw new ValidationException(validate.Errors);

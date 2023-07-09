@@ -19,6 +19,7 @@ namespace GbsoDev.TechTest.Library.Mol
 				.ForMember(x => x.Isbn, m => m.MapFrom(y => y.Id))
 				.ForMember(x => x.Titulo, m => m.MapFrom(y => y.Titulo))
 				.ForMember(x => x.EditorialId, m => m.MapFrom(y => y.EditorialId))
+				.ForMember(x => x.EditorialNombre, m => m.MapFrom(y => y.Editorial != null ? y.Editorial.Nombre : null))
 				.ForMember(x => x.Sinopsis, m => m.MapFrom(y => y.Sinopsis))
 				.ForMember(x => x.NPaginas, m => m.MapFrom(y => y.NPaginas))
 				.ForMember(x => x.Autores, m => m.MapFrom(y => y.LibroHasAutores.Select(a => new AutorModel
@@ -28,6 +29,7 @@ namespace GbsoDev.TechTest.Library.Mol
 					Apellidos = a.Autor != null ? a.Autor.Apellidos : null
 				})))
 				.ReverseMap()
+				.ForMember(x=> x.Editorial, m=> m.Ignore())
 				.ForMember(x => x.LibroHasAutores, m => m.MapFrom(y => y.Autores.Select(a => new AutorHasLibro
 				{
 					AutorId = a.Id,

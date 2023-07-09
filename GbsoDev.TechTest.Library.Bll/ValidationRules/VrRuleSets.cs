@@ -2,6 +2,7 @@
 {
 	internal static class VrRuleSets
 	{
+		internal static string ALL = "ALL";
 		internal static string SET = "SET";
 		internal static string UPDATE = "UPDATE";
 		internal static string DELETE = "DELETE";

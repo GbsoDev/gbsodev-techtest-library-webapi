@@ -14,11 +14,13 @@ namespace GbsoDev.TechTest.Library.Bll.ValidationRules
 					.NotEmpty()
 					.Must(n => n > 0);
 			});
-			
-			RuleFor(n => n.Nombre)
-				.NotEmpty().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.Nombre)));
-			RuleFor(n => n.Apellidos)
-				.NotEmpty().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.Apellidos)));
+			RuleSet(VrRuleSets.ALL, () =>
+			{
+				RuleFor(n => n.Nombre)
+					.NotEmpty().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.Nombre)));
+				RuleFor(n => n.Apellidos)
+					.NotEmpty().WithMessage(n => string.Format(ValidationRulesResx.VrPropertyEmpty, nameof(n.Apellidos)));
+			});
 		}
 	}
 }
