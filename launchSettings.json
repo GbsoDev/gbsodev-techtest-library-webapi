@@ -3,11 +3,12 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
-      "composeLaunchAction": "None",
-      "composeLaunchServiceName": "gbsodev.techtest.library.webapi",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "library-webapi",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
-        "gbsodev.techtest.library.database": "StartWithoutDebugging",
-        "gbsodev.techtest.library.webapi": "StartDebugging"
+        "library-webapi": "StartDebugging",
+        "library-database": "StartWithoutDebugging"
       }
     }
   }

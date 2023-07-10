@@ -1,0 +1,56 @@
+version: '3.4'
+
+services:
+  library-webapi:
+    image: ${DOCKER_REGISTRY-}gbsodev/gbsodev-techtest-library-webapi:release
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mipass123 
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx 
+    volumes:
+      - ./https:/https/:ro
+    networks:
+      - mynetwork
+    ports:
+      - 443:443
+    depends_on:
+      - library-database
+
+
+  library-web:
+    image: gbsodev/gbsodev-techtest-library-web:release
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    networks:
+      - mynetwork
+    ports:
+      - 80:80
+    depends_on:
+      - library-webapi
+    command: nginx -g "daemon off;"
+    tty: true
+
+  library-database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - MSSQL_SA_PASSWORD=pass@library-database93
+      - ACCEPT_EULA=Y
+    networks:
+      - mynetwork
+    ports:
+      - 1433:1433
+    volumes:
+      - techtest-dbdata:/var/opt/mssql
+      - ./backup:/deb-backup
+    tty: true
+
+volumes:
+  techtest-dbdata:
+
+networks:
+  mynetwork:
+    driver: bridge
