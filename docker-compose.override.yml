@@ -1,25 +1,27 @@
 version: '3.4'
 
 services:
-  gbsodev.techtest.library.webapi:
+  gbsodev-techtest-library-webapi:
+    image: gbsodev/gbsodev-techtest-library-webapi:debug
+    hostname: library-webapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - 8080:80
       - 8081:443
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    #volumes:
+    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
-      - gbsodev.techtest.library.database
-  gbsodev.techtest.library.database:
-    container_name: techtest.sql.containter
+      - gbsodev-techtest-library-database
+  gbsodev-techtest-library-database:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    hostname: library-database
+    container_name: techtest-sql-containter
     environment:
-      - MSSQL_SA_PASSWORD=gbso-pw@testtech01
+      - MSSQL_SA_PASSWORD=pass@library-database93
       - ACCEPT_EULA=Y
-    hostname: techtest.sql.host
     ports:
       - 1433:1433
     volumes:
