@@ -25,11 +25,12 @@ run `docker build --pull --rm -f "Dockerfile" -t gbsodev/gbsodev-techtest-librar
 ##### Publicar imagen docker en docker hub
 run `docker push gbsodev/gbsodev-techtest-library-webapi:release`
 
-#### Una ves publicadas las imagenes de los contenedores se puede proceder a la instalación en el servidor
-run `docker-compose -f "docker-compose.prod.yml" -p gbsodev-techtest-library up`
-#el  fichero docker-compose.prod.yml se encuentra en la ruta principal del código fuente de la api
-#### Construir imagen de base de datos release 
-# descargar imagen sql
-run `docker pull mcr.microsoft.com/mssql/server:2022-latest`
-# 
-run `docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=pass@library-database93" -p 1433:1433 --name library-sql-container --hostname library-database -d -it mcr.microsoft.com/mssql/server:2022-latest`
+##### Puesta en marcha
+### Una ves publicadas las imagenes de los contenedores se puede proceder a la instalación en el servidor
+# fichero docker-compose.prod.yml
+#este fichero permite levantar la aplicación en un entorno productivo
+run `docker-compose -f "docker-compose.prod.yml" -p gbsodev-techtest-library up -d`
+
+
+
+

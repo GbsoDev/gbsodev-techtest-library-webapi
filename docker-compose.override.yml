@@ -10,9 +10,9 @@ services:
     ports:
       - 8080:80
       - 8081:443
-    #volumes:
-    #  - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-    #  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - gbsodev-techtest-library-database
   gbsodev-techtest-library-database:
