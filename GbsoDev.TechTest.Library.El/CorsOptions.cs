@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GbsoDev.TechTest.Library.El
 {
-	public class AppSettings
+	public class CorsOptions
 	{
-		public AuthOptions AuthOptions { get; set; }
-		public CorsOptions AngularCors { get; set; }
+		public string Name { get; set; }
+		public string Origin { get; set; }
 	}
 }

@@ -29,11 +29,12 @@ builder.Services.AddBllValidationRulesLayer();
 builder.Services.AddSingleton(new MapperConfiguration(mc => mc.AddProfile(typeof(AutoMapperConfiguration))).CreateMapper());
 builder.Services.AddCors(options =>
 {
-	options.AddDefaultPolicy(builder =>
+	options.AddPolicy(appSettings.AngularCors.Name, builder =>
 	{
-		builder.AllowAnyOrigin()
+		builder.WithOrigins(appSettings.AngularCors.Origin)
 			   .AllowAnyMethod()
-			   .AllowAnyHeader();
+			   .AllowAnyHeader()
+			   .AllowCredentials();
 	});
 });
 var app = builder.Build();
@@ -50,6 +51,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors(appSettings.AngularCors.Name);
 
 app.MapControllers();
 
