@@ -15,6 +15,13 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		{
 			this.AuthService = authService;
 		}
+
+		[HttpOptions]
+		public IActionResult Options()
+		{
+			return NoContent();
+		}
+
 		[HttpPost]
 		[ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]

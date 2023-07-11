@@ -14,8 +14,8 @@ namespace GbsoDev.TechTest.Library.Wal
 			appSettings = new AppSettings();
 			var builder = new ConfigurationBuilder();
 			var combinedConfiguration = builder.AddConfiguration(configuration)
-				.AddJsonFile(Utils.DEVELOPMENT_FILE_CONFIGURATION_PATH, true)
-				.AddJsonFile(Utils.FILE_CONFIGURATION_PATH, false)
+				.AddJsonFile(Utils.DEVELOPMENT_FILE_CONFIGURATION_PATH, true, true)
+				.AddJsonFile(Utils.FILE_CONFIGURATION_PATH, false, true)
 				.Build();
 			combinedConfiguration.Bind(appSettings);
 			services.AddSingleton(appSettings);

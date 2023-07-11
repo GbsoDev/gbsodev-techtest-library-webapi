@@ -10,5 +10,6 @@ namespace GbsoDev.TechTest.Library.El
 	{
 		public string Name { get; set; }
 		public string Origin { get; set; }
+		public string[] Methods { get; set; }
 	}
 }

@@ -34,10 +34,15 @@ builder.Services.AddCors(options =>
 	{
 		options.AddPolicy(corPolicy.Origin, builder =>
 		{
-			builder.WithOrigins(corPolicy.Origin)
-				   .AllowAnyMethod()
-				   .AllowAnyHeader()
-				   .AllowCredentials();
+			var policy = builder.WithOrigins(corPolicy.Origin)
+			.AllowAnyMethod()
+			.AllowAnyHeader()
+			.AllowCredentials();
+
+			if(corPolicy.Methods?.Any() ?? false)
+			{
+				policy.WithMethods(corPolicy.Methods);
+			}
 		});
 	}
 });
@@ -54,9 +59,26 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
+app.UseRouting();
+
+app.UseCors(builder =>
+{
+	builder.AllowAnyOrigin()
+		   .AllowAnyMethod()
+		   .AllowAnyHeader();
+});
+
+foreach (var corPolicy in appSettings.AllowCors)
+{
+	app.UseCors(corPolicy.Name);
+}
+
 app.UseAuthorization();
 
-app.UseCors();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
 
 app.MapControllers();
 
