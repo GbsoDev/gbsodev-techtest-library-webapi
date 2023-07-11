@@ -2,7 +2,6 @@
 using GbsoDev.TechTest.Library.Bll;
 using GbsoDev.TechTest.Library.El;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -13,7 +12,12 @@ namespace GbsoDev.TechTest.Library.Wal
 		public static IServiceCollection AddSettings(this IServiceCollection services, IConfiguration configuration, out AppSettings appSettings)
 		{
 			appSettings = new AppSettings();
-			configuration.Bind(appSettings);
+			var builder = new ConfigurationBuilder();
+			var combinedConfiguration = builder.AddConfiguration(configuration)
+				.AddJsonFile(Utils.DEVELOPMENT_FILE_CONFIGURATION_PATH, true)
+				.AddJsonFile(Utils.FILE_CONFIGURATION_PATH, false)
+				.Build();
+			combinedConfiguration.Bind(appSettings);
 			services.AddSingleton(appSettings);
 			return services;
 		}
