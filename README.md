@@ -27,7 +27,7 @@ dotnet ef database update [new-migration-name] --startup-project GbsoDev.TechTes
 ## Generar Versión Release
 - An la carpeta de la solución ejecutar el siguiente comando con PowerShell, esto compilará la aplicáción y creará la imagen en docker
 ```
-docker-compose --pull -f "docker-compose.yml" build
+docker-compose -f "docker-compose.yml" build
 ```
 - Alternativamente puede usar el siguiente comando
 ```
