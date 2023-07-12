@@ -15,6 +15,7 @@ services:
       - mynetwork
     ports:
       - 443:443
+      - 8081:80
     depends_on:
       - library-database
 
@@ -28,7 +29,7 @@ services:
     networks:
       - mynetwork
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - ./web-assets:/usr/share/nginx/html/assets:ro
     depends_on:
