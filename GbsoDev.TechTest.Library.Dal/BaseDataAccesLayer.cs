@@ -13,11 +13,12 @@ namespace GbsoDev.TechTest.Library.Dal
 	internal partial class BaseDataAccesLayer<TEntity, TKey> : IBaseDataAccesLayer<TEntity, TKey>
 		where TEntity : class, IEntity<TKey>
 	{
-		protected readonly RootContext RootContext;
+		protected IRootContext RootContext => rootContext.Value;
+		private Lazy<IRootContext> rootContext;
 
 		public BaseDataAccesLayer(IServiceProvider serviceProvider)
 		{
-			RootContext = ActivatorUtilities.GetServiceOrCreateInstance<RootContext>(serviceProvider);
+			rootContext = ActivatorUtilities.GetServiceOrCreateInstance<Lazy<IRootContext>>(serviceProvider);
 		}
 
 		public virtual TEntity Register(TEntity entity)

@@ -1,9 +1,10 @@
 ﻿using GbsoDev.TechTest.Library.El;
 using Microsoft.EntityFrameworkCore;
+using GbsoDev.TechTest.Library.Dal.Contracts;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
-	public class RootContext : DbContext
+	public sealed class RootContext : DbContext, IRootContext
 	{
 		public DbSet<Usuario> Usuarios { get; set; }
 		public DbSet<Autor> Autores { get; set; }
