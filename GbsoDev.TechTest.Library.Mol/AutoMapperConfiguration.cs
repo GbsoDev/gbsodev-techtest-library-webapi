@@ -1,5 +1,4 @@
 using GbsoDev.TechTest.Library.El;
-using AutoMapper;
 
 namespace GbsoDev.TechTest.Library.Mol
 {

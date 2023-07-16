@@ -1,5 +1,4 @@
 ﻿using GbsoDev.TechTest.Library.El.Contracts;
-using System.Collections.Generic;
 
 namespace GbsoDev.TechTest.Library.El
 {

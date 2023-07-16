@@ -1,6 +1,4 @@
-﻿using GbsoDev.TechTest.Library.Bll.Contracts;
-using GbsoDev.TechTest.Library.Bll;
-using GbsoDev.TechTest.Library.El;
+﻿using GbsoDev.TechTest.Library.El;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

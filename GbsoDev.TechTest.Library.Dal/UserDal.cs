@@ -1,6 +1,5 @@
 ﻿using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
-using Microsoft.EntityFrameworkCore;
 
 namespace GbsoDev.TechTest.Library.Dal
 {

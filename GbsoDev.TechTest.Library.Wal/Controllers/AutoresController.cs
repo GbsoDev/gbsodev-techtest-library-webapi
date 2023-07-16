@@ -3,7 +3,6 @@ using GbsoDev.TechTest.Library.El;
 using GbsoDev.TechTest.Library.Mol;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace GbsoDev.TechTest.Library.Wal.Controllers
 {

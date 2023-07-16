@@ -1,12 +1,7 @@
 ﻿using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El.Contracts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
