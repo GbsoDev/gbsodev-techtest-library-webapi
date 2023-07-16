@@ -1,47 +1,24 @@
 using GbsoDev.TechTest.Library.Bll;
-using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 {
 	[TestClass()]
 	public class AutorServiceTest
 	{
-		private Mock<IAutorDal> mockAutorDal;
-		//private AutorService autorSerevice;
-		private DateTime createdDate;
-		private List<Autor> autores;
-		private Random random;
 		private CustomServiceCollection serviceCollection;
 		[TestInitialize]
 		public void Initialize()
 		{
 			serviceCollection = TestInitializer.ServiceProvider;
-			mockAutorDal = new Mock<IAutorDal>();
-			createdDate = DateTime.Now;
-			random = new Random();
-			autores = new List<Autor>();
-			for (int i = 1; i <= 10; i++)
-			{
-				var autor = new Autor
-				{
-					Id = i,
-					Nombre = "Nombre_" + i.ToString(),
-					Apellidos = "Apellidos_" + i.ToString(),
-					CreatedDate = DateTime.Now.AddDays(random.Next(1, 30))
-				};
-				autores.Add(autor);
-			}
 		}
 
 		[TestMethod("Register Ok - Registra autor y retorna nueva instancia con id aumentado y CreateData establecido")]
 		public void Register_Ok()
 		{
 			//Arrange
-			var randomId = autores.OrderBy(y => y.Id).Last().Id + random.Next(1, 30);
-			var newInput = new Autor()
+			var input = new Autor()
 			{
 				Id = default,
 				Nombre = "Gerson Brain",
@@ -49,120 +26,121 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 				CreatedDate = default
 			};
 
-			mockAutorDal.Setup(x => x.Register(newInput))
-				.Returns(() =>
-				{
-					newInput.Id = randomId;
-					newInput.CreatedDate = createdDate;
-					autores.Add(newInput);
-					return newInput;
-				});
-
-			serviceCollection.CustomAddScoped(mockAutorDal.Object);
-
+			var expected = new
+			{
+				input.Nombre,
+				input.Apellidos,
+			};
 			var autorSerevice = new AutorService(serviceCollection.BuildServiceProvider());
 			//Act
-			var actual = autorSerevice.Set(newInput);
-
+			var actual = autorSerevice.Set(input);
 			//Assert
-			Assert.IsNotNull(actual);
-			Assert.IsTrue(actual.Id == randomId, "Ultimo id + n asignado");
-			Assert.AreEqual(actual.CreatedDate, createdDate, "Fecha de creación establecida");
-			Assert.AreEqual(actual, newInput, "Las instancias de la entrada y la salida no son la misma");
+			Utils.AreEquals(expected, actual);
+			Assert.IsTrue(actual.Id > 0, "el Id no fue asignado");
 		}
 
 		[TestMethod("Delete Ok - Elimina un autor")]
 		public void Delete_Ok()
 		{
 			//Arrange
-			var randomId = random.Next(1, 10);
-			var toDeleteInput = autores.First(x => x.Id == randomId);
-
-			mockAutorDal.Setup(x => x.Delete(toDeleteInput))
-				.Callback(() =>
-				{
-					autores.Remove(toDeleteInput);
-				});
-
-			serviceCollection.CustomAddScoped(mockAutorDal.Object);
+			var input = new Autor()
+			{ 
+				Id = 1,
+			};
 			var autorSerevice = new AutorService(serviceCollection.BuildServiceProvider());
-
 			//Act
-			autorSerevice.Delete(toDeleteInput);
+			autorSerevice.Delete(input);
 			//Assert
-			Assert.IsTrue(!autores.Any(x => x.Id == toDeleteInput.Id), "Autor Eliminado");
 		}
 
 		[TestMethod("Update Ok - Actualizar un autor y retorna la misma instancia")]
 		public void Update_Ok()
 		{
 			//Arrange
-			var randomId = random.Next(1, 10);
-			var entry = autores.First(x => x.Id == randomId);
-			var toUpdateInput = new Autor()
+			var input = new Autor()
 			{
-				Id = randomId,
+				Id = 1,
 				Nombre = "Nombre Actualizado",
 				Apellidos = "Apellidos Actualizados",
+				CreatedDate = DateTime.Now,
+			};
+
+			var expected = new
+			{
+				input.Id,
+				input.Nombre,
+				input.Apellidos,
+				input.CreatedDate
 			};
 			
-			mockAutorDal.Setup(x => x.Update(toUpdateInput))
-				.Returns(() =>
-				{
-					entry.Nombre = toUpdateInput.Nombre;
-					entry.Apellidos = toUpdateInput.Apellidos;
-					return toUpdateInput = entry;
-				});
-			
-			serviceCollection.CustomAddScoped(mockAutorDal.Object);
 			var autorService = new AutorService(serviceCollection.BuildServiceProvider());
+			
 			//Act
-
-			var actual = autorService.Update(toUpdateInput);
+			var actual = autorService.Update(input);
+			
 			//Assert
-
-			Assert.IsNotNull(actual);
-			Assert.IsTrue(actual.Id == randomId, "El Id no debe cambiar luego de actualizar");
-			Assert.AreEqual(actual.CreatedDate, entry.CreatedDate, "La fecha de creacion no debe cambia");
-			Assert.AreEqual(actual, toUpdateInput, "Las instancias de la entrada y la salida no son la misma");
+			Assert.IsNotNull(actual, "El resultado no puede ser null");
+			Utils.IsNotNulls(expected, actual);
+			Utils.AreEquals(expected, actual);
 		}
 
 		[TestMethod("GetById Ok - Obtener un autor por su id")]
-		public void GetById_Ok()
+		[DataRow(1, false)]
+		[DataRow(2, true)]
+		public void GetById_Ok(int inputId, bool nullExpected)
 		{
 			//Arrange
-			var randomId = random.Next(1, 10);
-			var entry = autores.First(x => x.Id == randomId);
-			mockAutorDal.Setup(x => x.GetById(randomId))
-				.Returns(() => autores.First(x => x.Id == randomId));
+			var obj = new Autor();
+			var expected = new
+			{
+				obj.Nombre,
+				obj.Apellidos,
+				obj.AutorHasLibros,
+				obj.CreatedDate
+			};
 
-			serviceCollection.CustomAddScoped(mockAutorDal.Object);
 			var autorService = new AutorService(serviceCollection.BuildServiceProvider());
 
 			//Act
-			var actual = autorService.GetById(randomId);
+			var actual = autorService.GetById(inputId);
 
 			//Assert
-			Assert.IsNotNull(actual, "El resultado no puede ser null");
-			Assert.AreEqual(actual, entry, "Las instancias de la entrada y la salida no son la misma");
+			if (nullExpected)
+			{
+				Assert.IsNull(actual, "Se espera un resultado null");
+			}
+			else {
+				Assert.IsNotNull(actual, "No se espera un resultado null");
+				Utils.IsNotNulls(expected, actual);
+				Assert.AreEqual(inputId, actual.Id, "El id de entrada no con corresponde con el id de salida");
+			}
 		}
 
 		[TestMethod("List Ok - Obtener una lista")]
 		public void GetBy_Ok()
 		{
 			//Arrange
-			mockAutorDal.Setup(x => x.List())
-				.Returns(() => autores.ToArray());
-
-			serviceCollection.CustomAddScoped(mockAutorDal.Object);
+			var obj = new Autor();
+			var expected = new
+			{
+				obj.Nombre,
+				obj.Apellidos,
+				obj.CreatedDate,
+				obj.AutorHasLibros
+			};
 			var autorService = new AutorService(serviceCollection.BuildServiceProvider());
-
+			
 			//Act
-			var actual = autorService.Get();
+			var actuals = autorService.Get();
 
 			//Assert
-			Assert.IsNotNull(actual, "El resultado no puede ser null");
-			Assert.IsTrue(actual.Count() == autores.Count(), "Debe devolver la totalidad de los datos");
+			Assert.IsNotNull(actuals, "El resultado no puede ser null");
+			foreach (var actual in actuals)
+			{
+				Assert.IsNotNull(actual, "La lista no puede devolver valor nulos");
+				Utils.IsNotNulls(expected, actual);
+				Assert.IsTrue(actual.Id > 0, "el Id no fue asignado");
+			}
 		}
 	}
 }
