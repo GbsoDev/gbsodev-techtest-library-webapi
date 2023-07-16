@@ -9,7 +9,6 @@ namespace GbsoDev.TechTest.Library.Dal.Contracts
 		TEntity Register(TEntity entity);
 		TEntity? GetById(TKey id);
 		TEntity[] List();
-		TEntity[] Where(Expression<Func<TEntity, bool>> expression);
 		/// <summary>
 		/// Update all properies from entity
 		/// </summary>

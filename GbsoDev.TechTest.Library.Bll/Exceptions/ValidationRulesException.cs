@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace GbsoDev.TechTest.Library.Bll.Exception
 {
-	internal sealed class ValidationRulesException : System.Exception
+	internal class ValidationRulesException : System.Exception
 	{
 		public ValidationRulesException()
 		{

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GbsoDev.TechTest.Library.Wal
 {
-	public class BaseController : ControllerBase
+	public abstract class BaseController : ControllerBase
 	{
 		protected readonly ILogger Logger;
 		protected readonly IMapper Mapper;

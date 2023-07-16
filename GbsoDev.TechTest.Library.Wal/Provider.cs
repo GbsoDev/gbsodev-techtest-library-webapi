@@ -4,6 +4,8 @@ using GbsoDev.TechTest.Library.El;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
+using GbsoDev.TechTest.Library.Mol;
 
 namespace GbsoDev.TechTest.Library.Wal
 {
@@ -22,7 +24,7 @@ namespace GbsoDev.TechTest.Library.Wal
 			return services;
 		}
 
-		public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration, AppSettings appSettings)
+		public static IServiceCollection AddAuthentication(this IServiceCollection services, AppSettings appSettings)
 		{
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
 			{
@@ -38,5 +40,13 @@ namespace GbsoDev.TechTest.Library.Wal
 			});
 			return services;
 		}
+		
+		public static IServiceCollection AddMapperConfiguration(this IServiceCollection services)
+		{
+			return services.AddSingleton(
+				new MapperConfiguration(mc => mc.AddProfile(typeof(AutoMapperConfiguration))).CreateMapper()
+			);
+		}
+
 	}
 }

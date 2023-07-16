@@ -1,10 +1,11 @@
 ﻿using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
-	internal sealed class LibroDal : BaseDataAccesLayer<Libro, long>, ILibroDal
+	public sealed class LibroDal : BaseDataAccesLayer<Libro, long>, ILibroDal
 	{
 
 		public LibroDal(IServiceProvider serviceProvider) : base(serviceProvider)

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal abstract class EntityBaseService<TEntity, TKey, TDal> : BaseService, IEntityBaseService<TEntity, TKey>
+	public abstract class EntityBaseService<TEntity, TKey, TDal> : BaseService, IEntityBaseService<TEntity, TKey>
 		where TEntity : class, IEntity<TKey>
 		where TDal : class, IBaseDataAccesLayer<TEntity, TKey>
 	{

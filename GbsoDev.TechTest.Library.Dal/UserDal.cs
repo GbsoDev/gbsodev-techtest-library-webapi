@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
-	internal sealed class UserDal : BaseDataAccesLayer<Usuario, int>, IUserDal
+	public sealed class UserDal : BaseDataAccesLayer<Usuario, int>, IUserDal
 	{
 
 		public UserDal(IServiceProvider serviceProvider) : base(serviceProvider)
