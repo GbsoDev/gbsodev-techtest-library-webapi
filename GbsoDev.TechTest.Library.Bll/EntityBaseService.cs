@@ -53,7 +53,7 @@ namespace GbsoDev.TechTest.Library.Bll
 		
 		public virtual void Delete(TEntity entity)
 		{
-			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.ALL, VrRuleSets.DELETE));
+			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.DELETE));
 			if (!validate.IsValid)
 			{
 				throw new ValidationException(validate.Errors);

@@ -11,8 +11,12 @@ namespace GbsoDev.TechTest.Library.Bll.ValidationRules
 			RuleSet(VrRuleSets.UPDATE, () =>
 			{
 				RuleFor(n => n.Id)
-					.NotEmpty()
-					.Must(n => n > 0);
+					.NotEmpty();
+			});
+			RuleSet(VrRuleSets.DELETE, () =>
+			{
+				RuleFor(n => n.Id)
+					.NotEmpty();
 			});
 			RuleSet(VrRuleSets.ALL, () =>
 			{
