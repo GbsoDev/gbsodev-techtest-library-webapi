@@ -1,6 +1,6 @@
 using GbsoDev.TechTest.Library.El;
 
-namespace GbsoDev.TechTest.Library.Mol
+namespace GbsoDev.TechTest.Library.Dtol
 {
 	public class AutoMapperConfiguration : AutoMapper.Profile
 	{

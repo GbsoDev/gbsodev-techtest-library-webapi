@@ -1,4 +1,4 @@
-﻿namespace GbsoDev.TechTest.Library.Mol
+﻿namespace GbsoDev.TechTest.Library.Dtol
 {
 	public class AuthModel
 	{

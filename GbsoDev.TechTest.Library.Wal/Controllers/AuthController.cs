@@ -1,6 +1,6 @@
 ﻿using GbsoDev.TechTest.Library.Bll.Contracts;
 using GbsoDev.TechTest.Library.El;
-using GbsoDev.TechTest.Library.Mol;
+using GbsoDev.TechTest.Library.Dtol;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GbsoDev.TechTest.Library.Wal.Controllers

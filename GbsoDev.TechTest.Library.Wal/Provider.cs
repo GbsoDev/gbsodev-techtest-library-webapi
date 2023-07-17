@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
-using GbsoDev.TechTest.Library.Mol;
+using GbsoDev.TechTest.Library.Dtol;
 
 namespace GbsoDev.TechTest.Library.Wal
 {
