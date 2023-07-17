@@ -31,12 +31,10 @@ namespace GbsoDev.TechTest.Library.El
 		///// <summary>
 		///// LibroHasAutores del libro
 		///// </summary>
-		//virtual public List<Autor> LibroHasAutores { get; set; }
 		public List<AutorHasLibro> LibroHasAutores { get; set; }
 		public DateTime? CreatedDate { get; set; }
 		public Libro()
 		{
-			//this.LibroHasAutores = new List<Autor>();
 			LibroHasAutores = new List<AutorHasLibro>();
 		}
 	}
