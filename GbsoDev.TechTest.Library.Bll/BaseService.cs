@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal abstract class BaseService
+	public abstract class BaseService
 	{
 		public ILogger<BaseService> Logger { get; set; }
 

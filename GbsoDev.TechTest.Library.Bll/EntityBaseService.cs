@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal abstract class EntityBaseService<TEntity, TKey, TDal> : BaseService, IEntityBaseService<TEntity, TKey>
+	public abstract class EntityBaseService<TEntity, TKey, TDal> : BaseService, IEntityBaseService<TEntity, TKey>
 		where TEntity : class, IEntity<TKey>
 		where TDal : class, IBaseDataAccesLayer<TEntity, TKey>
 	{
@@ -53,7 +53,7 @@ namespace GbsoDev.TechTest.Library.Bll
 		
 		public virtual void Delete(TEntity entity)
 		{
-			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.ALL, VrRuleSets.DELETE));
+			var validate = MainVr.Validate(entity, n => n.IncludeRuleSets(VrRuleSets.DELETE));
 			if (!validate.IsValid)
 			{
 				throw new ValidationException(validate.Errors);

@@ -6,8 +6,13 @@ namespace GbsoDev.TechTest.Library.Dal
 {
 	public static class DataAccesProvider
 	{
-		public static IServiceCollection AddDbContext(IServiceCollection services, string connectionString) => services.AddDbContext<RootContext>(options => options.UseSqlServer(connectionString));
-		
+		public static IServiceCollection AddDbContext(IServiceCollection services, string connectionString)
+		{
+			return services.AddDbContext<RootContext>(options => options.UseSqlServer(connectionString))
+				.AddScoped<IRootContext, RootContext>()
+				.AddScoped(serviceProvider => new Lazy<IRootContext>(() => serviceProvider.GetRequiredService<IRootContext>()));
+		}
+
 		public static IServiceCollection AddDataAcces(this IServiceCollection services)
 		{
 			return services

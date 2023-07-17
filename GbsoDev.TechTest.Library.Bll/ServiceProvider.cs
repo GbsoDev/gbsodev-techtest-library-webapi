@@ -19,7 +19,7 @@ namespace GbsoDev.TechTest.Library.Bll
 				.AddScoped(serviceProvider => new Lazy<IAutorService>(() => serviceProvider.GetRequiredService<IAutorService>()))
 				.AddScoped<ILibroService, LibroService>()
 				.AddScoped(serviceProvider => new Lazy<ILibroService>(() => serviceProvider.GetRequiredService<ILibroService>()))
-				.AddScoped<IEditorialService, Editorialervice>()
+				.AddScoped<IEditorialService, EditorialService>()
 				.AddScoped(serviceProvider => new Lazy<IEditorialService>(() => serviceProvider.GetRequiredService<IEditorialService>()));
 		}
 	}

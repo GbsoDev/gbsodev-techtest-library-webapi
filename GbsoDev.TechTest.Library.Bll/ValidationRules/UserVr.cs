@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GbsoDev.TechTest.Library.Bll.Resources;
 using GbsoDev.TechTest.Library.El;
 
 namespace GbsoDev.TechTest.Library.Bll.ValidationRules

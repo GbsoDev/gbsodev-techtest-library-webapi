@@ -1,10 +1,6 @@
-using AutoMapper;
 using GbsoDev.TechTest.Library.Bll;
 using GbsoDev.TechTest.Library.El;
-using GbsoDev.TechTest.Library.Mol;
 using GbsoDev.TechTest.Library.Wal;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +15,7 @@ builder.Services.AddSettings(builder.Configuration, out AppSettings appSettings)
 // Add dbContext
 builder.Services.AddDbContext(appSettings.GetConnectionString(Utils.CONNECTION_ROOT_NAME) ?? throw new ApplicationException("Conexión a base de datos no encontrada"));
 // add JWT app authentication
-builder.Services.AddAuthentication(builder.Configuration, appSettings);
+builder.Services.AddAuthentication(appSettings);
 // Add data acces
 builder.Services.AddDataAcces();
 // Add service providers
@@ -27,7 +23,7 @@ builder.Services.AddServices();
 // Add validation rules
 builder.Services.AddBllValidationRulesLayer();
 // Add AutoMapper
-builder.Services.AddSingleton(new MapperConfiguration(mc => mc.AddProfile(typeof(AutoMapperConfiguration))).CreateMapper());
+builder.Services.AddMapperConfiguration();
 builder.Services.AddCors(options =>
 {
 	foreach (var corPolicy in appSettings.AllowCors)

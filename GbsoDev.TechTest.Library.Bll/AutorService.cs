@@ -4,7 +4,7 @@ using GbsoDev.TechTest.Library.El;
 
 namespace GbsoDev.TechTest.Library.Bll
 {
-	internal sealed class AutorService : EntityBaseService<Autor, int, IAutorDal>, IAutorService
+	public sealed class AutorService : EntityBaseService<Autor, int, IAutorDal>, IAutorService
 	{
 		public AutorService(IServiceProvider serviceProvider) : base(serviceProvider)
 		{

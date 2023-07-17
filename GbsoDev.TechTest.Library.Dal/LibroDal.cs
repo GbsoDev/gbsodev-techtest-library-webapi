@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GbsoDev.TechTest.Library.Dal
 {
-	internal sealed class LibroDal : BaseDataAccesLayer<Libro, long>, ILibroDal
+	public sealed class LibroDal : BaseDataAccesLayer<Libro, long>, ILibroDal
 	{
 
 		public LibroDal(IServiceProvider serviceProvider) : base(serviceProvider)
