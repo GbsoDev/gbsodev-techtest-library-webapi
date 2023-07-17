@@ -23,47 +23,47 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		}
 
 		[HttpPost]
-		[ProducesResponseType(typeof(AutorModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(AutorDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Post([FromBody] AutorModel entityModel)
+		public IActionResult Post([FromBody] AutorDto entityModel)
 		{
-			var entity = Mapper.Map<AutorModel, Autor> (entityModel);
-			var entityResult =  Mapper.Map<Autor, AutorModel>(AutorService.Set(entity));
+			var entity = Mapper.Map<AutorDto, Autor> (entityModel);
+			var entityResult =  Mapper.Map<Autor, AutorDto>(AutorService.Set(entity));
 			return new OkObjectResult(entityResult);
 		}
 
 		[HttpGet]
-		[ProducesResponseType(typeof(IEnumerable<AutorModel>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(IEnumerable<AutorDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Get()
 		{
 			var entity = AutorService.Get();
-			var entityResult = Mapper.Map<IEnumerable<Autor>, IEnumerable<AutorModel>>(entity);
+			var entityResult = Mapper.Map<IEnumerable<Autor>, IEnumerable<AutorDto>>(entity);
 			return new OkObjectResult(entityResult);
 		}
 
 		[HttpGet("{id}")]
-		[ProducesResponseType(typeof(AutorModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(AutorDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetById(int id)
 		{
 			var entity = AutorService.GetById(id);
-			var entityResult = Mapper.Map<Autor, AutorModel>(entity);
+			var entityResult = Mapper.Map<Autor, AutorDto>(entity);
 			return new OkObjectResult(entityResult);
 		}
 
 		[HttpPut]
-		[ProducesResponseType(typeof(AutorModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(AutorDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Put([FromBody] AutorModel autorModel)
+		public IActionResult Put([FromBody] AutorDto autorModel)
 		{
-			var entity = Mapper.Map<AutorModel, Autor>(autorModel);
-			var entityResult = Mapper.Map<Autor, AutorModel>(AutorService.Update(entity));
+			var entity = Mapper.Map<AutorDto, Autor>(autorModel);
+			var entityResult = Mapper.Map<Autor, AutorDto>(AutorService.Update(entity));
 			return new OkObjectResult(entityResult);
 		}
 
 		[HttpDelete("{id}")]
-		[ProducesResponseType(typeof(AutorModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(AutorDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Delete(int id)
 		{
@@ -74,12 +74,12 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 
 
 		[HttpGet("{id}/libros")]
-		[ProducesResponseType(typeof(List<LibroModel>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(List<LibroDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetNotesByLibro(int id)
 		{
 			var libros = LibroService.GetByAutorId(id);
-			var noteResult = Mapper.Map<List<Libro>, List<LibroModel>>(libros);
+			var noteResult = Mapper.Map<List<Libro>, List<LibroDto>>(libros);
 			return new OkObjectResult(noteResult);
 		}
 	}
