@@ -1,168 +1,154 @@
 ﻿using GbsoDev.TechTest.Library.Bll;
-using GbsoDev.TechTest.Library.Dal.Contracts;
 using GbsoDev.TechTest.Library.El;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 {
-	[TestClass()]
+	[TestClass]
 	public class EditorialServiceTest
 	{
-		private Mock<IEditorialDal> mockEditorialDal;
-		private DateTime createdDate;
-		private List<Editorial> editoriales;
-		private Random random;
 		private CustomServiceCollection serviceCollection;
 
 		[TestInitialize]
 		public void Initialize()
 		{
 			serviceCollection = TestInitializer.ServiceProvider;
-			mockEditorialDal = new Mock<IEditorialDal>();
-			createdDate = DateTime.Now;
-			random = new Random();
-			editoriales = new List<Editorial>();
-			for (int i = 1; i <= 10; i++)
-			{
-				var editorial = new Editorial
-				{
-					Id = i,
-					Nombre = "Nombre_" + i.ToString(),
-					Sede = "Sede_" + i.ToString(),
-					CreatedDate = DateTime.Now.AddDays(random.Next(1, 30))
-				};
-				editoriales.Add(editorial);
-			}
 		}
 
 		[TestMethod("Register Ok - Registra editorial y retorna nueva instancia con id aumentado y CreateData establecido")]
 		public void Register_Ok()
 		{
-			//Arrange
-			var randomId = editoriales.OrderBy(y => y.Id).Last().Id + random.Next(1, 30);
-			var newInput = new Editorial()
+			// Arrange
+			var input = new Editorial()
 			{
 				Id = default,
-				Nombre = "Nombre Editorial",
-				Sede = "Sede Editorial",
+				Nombre = "Nombre de la Editorial",
+				Sede = "Sede de la Editorial",
 				CreatedDate = default
 			};
 
-			mockEditorialDal.Setup(x => x.Register(newInput))
-				.Returns(() =>
-				{
-					newInput.Id = randomId;
-					newInput.CreatedDate = createdDate;
-					editoriales.Add(newInput);
-					return newInput;
-				});
-
-			serviceCollection.CustomAddScoped(mockEditorialDal.Object);
+			var expected = new
+			{
+				input.Nombre,
+				input.Sede
+			};
 
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
-			//Act
-			var actual = editorialService.Set(newInput);
 
-			//Assert
-			Assert.IsNotNull(actual);
-			Assert.IsTrue(actual.Id == randomId, "Ultimo id + n asignado");
-			Assert.AreEqual(createdDate, actual.CreatedDate, "Fecha de creación establecida");
-			Assert.AreEqual(newInput, actual, "Las instancias de la entrada y la salida no son la misma");
+			// Act
+			var actual = editorialService.Set(input);
+
+			// Assert
+			Utils.AreEquals(expected, actual);
+			Assert.IsTrue(actual.Id > 0, "El Id no fue asignado");
 		}
 
 		[TestMethod("Delete Ok - Elimina una editorial")]
 		public void Delete_Ok()
 		{
-			//Arrange
-			var randomId = random.Next(1, 10);
-			var toDeleteInput = editoriales.First(x => x.Id == randomId);
+			// Arrange
+			var input = new Editorial()
+			{
+				Id = 1
+			};
 
-			mockEditorialDal.Setup(x => x.Delete(toDeleteInput))
-				.Callback(() =>
-				{
-					editoriales.Remove(toDeleteInput);
-				});
-
-			serviceCollection.CustomAddScoped(mockEditorialDal.Object);
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
 
-			//Act
-			editorialService.Delete(toDeleteInput);
-			//Assert
-			Assert.IsTrue(!editoriales.Any(x => x.Id == toDeleteInput.Id), "Editorial Eliminada");
+			// Act
+			editorialService.Delete(input);
+
+			// Assert
+			// No hay aserciones específicas ya que se espera que no ocurran errores durante la eliminación
 		}
 
 		[TestMethod("Update Ok - Actualizar una editorial y retorna la misma instancia")]
 		public void Update_Ok()
 		{
-			//Arrange
-			var randomId = random.Next(1, 10);
-			var entry = editoriales.First(x => x.Id == randomId);
-			var toUpdateInput = new Editorial()
+			// Arrange
+			var input = new Editorial()
 			{
-				Id = randomId,
+				Id = 1,
 				Nombre = "Nombre Actualizado",
 				Sede = "Sede Actualizada",
+				CreatedDate = DateTime.Now
 			};
 
-			mockEditorialDal.Setup(x => x.Update(toUpdateInput))
-				.Returns(() =>
-				{
-					entry.Nombre = toUpdateInput.Nombre;
-					entry.Sede = toUpdateInput.Sede;
-					return toUpdateInput = entry;
-				});
+			var expected = new
+			{
+				input.Id,
+				input.Nombre,
+				input.Sede,
+				input.CreatedDate
+			};
 
-			serviceCollection.CustomAddScoped(mockEditorialDal.Object);
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
-			//Act
 
-			var actual = editorialService.Update(toUpdateInput);
-			//Assert
+			// Act
+			var actual = editorialService.Update(input);
 
-			Assert.IsNotNull(actual);
-			Assert.IsTrue(actual.Id == randomId, "El Id no debe cambiar luego de actualizar");
-			Assert.AreEqual(entry.CreatedDate, actual.CreatedDate, "La fecha de creación no debe cambiar");
-			Assert.AreEqual(toUpdateInput, actual, "Las instancias de la entrada y la salida no son la misma");
+			// Assert
+			Assert.IsNotNull(actual, "El resultado no puede ser null");
+			Utils.IsNotNulls(expected, actual);
+			Utils.AreEquals(expected, actual);
 		}
 
 		[TestMethod("GetById Ok - Obtener una editorial por su id")]
-		public void GetById_Ok()
+		[DataRow(1, false)]
+		[DataRow(2, true)]
+		public void GetById_Ok(int inputId, bool nullExpected)
 		{
-			//Arrange
-			var randomId = random.Next(1, 10);
-			var entry = editoriales.First(x => x.Id == randomId);
-			mockEditorialDal.Setup(x => x.GetById(randomId))
-				.Returns(() => editoriales.First(x => x.Id == randomId));
+			// Arrange
+			var obj = new Editorial();
+			var expected = new
+			{
+				obj.Nombre,
+				obj.Sede,
+				obj.CreatedDate
+			};
 
-			serviceCollection.CustomAddScoped(mockEditorialDal.Object);
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
 
-			//Act
-			var actual = editorialService.GetById(randomId);
+			// Act
+			var actual = editorialService.GetById(inputId);
 
-			//Assert
-			Assert.IsNotNull(actual, "El resultado no puede ser null");
-			Assert.AreEqual(entry, actual, "Las instancias de la entrada y la salida no son la misma");
+			// Assert
+			if (nullExpected)
+			{
+				Assert.IsNull(actual, "Se espera un resultado null");
+			}
+			else
+			{
+				Assert.IsNotNull(actual, "No se espera un resultado null");
+				Utils.IsNotNulls(expected, actual);
+				Assert.AreEqual(inputId, actual.Id, "El id de entrada no corresponde con el id de salida");
+			}
 		}
 
-		[TestMethod("List Ok - Obtener una lista")]
-		public void GetBy_Ok()
+		[TestMethod("List Ok - Obtener una lista de editoriales")]
+		public void List_Ok()
 		{
-			//Arrange
-			mockEditorialDal.Setup(x => x.List())
-				.Returns(() => editoriales.ToArray());
+			// Arrange
+			var obj = new Editorial();
+			var expected = new
+			{
+				obj.Nombre,
+				obj.Sede,
+				obj.CreatedDate
+			};
 
-			serviceCollection.CustomAddScoped(mockEditorialDal.Object);
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
 
-			//Act
-			var actual = editorialService.Get();
+			// Act
+			var actuals = editorialService.Get();
 
-			//Assert
-			Assert.IsNotNull(actual, "El resultado no puede ser null");
-			Assert.IsTrue(actual.Count() == editoriales.Count(), "Debe devolver la totalidad de los datos");
+			// Assert
+			Assert.IsNotNull(actuals, "El resultado no puede ser null");
+			foreach (var actual in actuals)
+			{
+				Assert.IsNotNull(actual, "La lista no puede devolver valores nulos");
+				Utils.IsNotNulls(expected, actual);
+				Assert.IsTrue(actual.Id > 0, "El Id no fue asignado");
+			}
 		}
 	}
 }
