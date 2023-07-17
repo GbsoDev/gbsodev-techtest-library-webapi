@@ -1,6 +1,6 @@
 ﻿using GbsoDev.TechTest.Library.Bll.Contracts;
 using GbsoDev.TechTest.Library.El;
-using GbsoDev.TechTest.Library.Mol;
+using GbsoDev.TechTest.Library.Dtol;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,42 +20,42 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		}
 
 		[HttpGet]
-		[ProducesResponseType(typeof(IEnumerable<EditorialModel>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(IEnumerable<EditorialDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult Get()
 		{
 			var editoriales = EditorialService.Get();
-			var editorialResults = Mapper.Map<IEnumerable<Editorial>, IEnumerable<EditorialModel>>(editoriales);
+			var editorialResults = Mapper.Map<IEnumerable<Editorial>, IEnumerable<EditorialDto>>(editoriales);
 			return new OkObjectResult(editorialResults);
 		}
 
 		[HttpGet("{id}")]
-		[ProducesResponseType(typeof(EditorialModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(EditorialDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetById(int id)
 		{
 			var editorial = EditorialService.GetById(id);
-			var editorialResult = Mapper.Map<Editorial, EditorialModel>(editorial);
+			var editorialResult = Mapper.Map<Editorial, EditorialDto>(editorial);
 			return new OkObjectResult(editorialResult);
 		}
 
 		[HttpPost]
-		[ProducesResponseType(typeof(EditorialModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(EditorialDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Post([FromBody] EditorialModel entityModel)
+		public IActionResult Post([FromBody] EditorialDto entityModel)
 		{
-			var editorial = Mapper.Map<EditorialModel, Editorial>(entityModel);
-			var editorialResult = Mapper.Map<Editorial, EditorialModel>(EditorialService.Set(editorial));
+			var editorial = Mapper.Map<EditorialDto, Editorial>(entityModel);
+			var editorialResult = Mapper.Map<Editorial, EditorialDto>(EditorialService.Set(editorial));
 			return new OkObjectResult(editorialResult);
 		}
 
 		[HttpPut()]
-		[ProducesResponseType(typeof(EditorialModel), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(EditorialDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Put([FromBody] EditorialModel personModel)
+		public IActionResult Put([FromBody] EditorialDto personModel)
 		{
-			var editorial = Mapper.Map<EditorialModel, Editorial>(personModel);
-			var editorialResult = Mapper.Map<Editorial, EditorialModel>(EditorialService.Update(editorial));
+			var editorial = Mapper.Map<EditorialDto, Editorial>(personModel);
+			var editorialResult = Mapper.Map<Editorial, EditorialDto>(EditorialService.Update(editorial));
 			return new OkObjectResult(editorialResult);
 		}
 

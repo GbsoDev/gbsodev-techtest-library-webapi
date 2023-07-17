@@ -1,6 +1,6 @@
 ﻿using GbsoDev.TechTest.Library.Bll.Contracts;
 using GbsoDev.TechTest.Library.El;
-using GbsoDev.TechTest.Library.Mol;
+using GbsoDev.TechTest.Library.Dtol;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GbsoDev.TechTest.Library.Wal.Controllers
@@ -25,9 +25,9 @@ namespace GbsoDev.TechTest.Library.Wal.Controllers
 		[HttpPost]
 		[ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult Post([FromBody] AuthModel authModel)
+		public IActionResult Post([FromBody] AuthDto authModel)
 		{
-			var Auth = Mapper.Map<AuthModel, Usuario>(authModel);
+			var Auth = Mapper.Map<AuthDto, Usuario>(authModel);
 
 			var authResult = AuthService.ValidateLogin(Auth);
 			if(authResult != null)

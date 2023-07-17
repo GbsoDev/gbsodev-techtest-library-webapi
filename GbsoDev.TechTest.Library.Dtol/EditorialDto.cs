@@ -1,6 +1,6 @@
-﻿namespace GbsoDev.TechTest.Library.Mol
+﻿namespace GbsoDev.TechTest.Library.Dtol
 {
-	public class EditorialModel
+	public class EditorialDto
 	{
 		public int Id { get; set; }
 		public string? Nombre { get; set; }

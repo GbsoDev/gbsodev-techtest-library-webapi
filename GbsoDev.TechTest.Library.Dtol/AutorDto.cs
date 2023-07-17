@@ -1,6 +1,6 @@
-﻿namespace GbsoDev.TechTest.Library.Mol
+﻿namespace GbsoDev.TechTest.Library.Dtol
 {
-	public sealed class AutorModel
+	public sealed class AutorDto
 	{
 		public int Id { get; set; }
 		public string? Nombre { get; set; }

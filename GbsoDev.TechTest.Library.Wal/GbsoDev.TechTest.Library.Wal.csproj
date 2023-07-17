@@ -38,7 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GbsoDev.TechTest.Library.Bll\GbsoDev.TechTest.Library.Bll.csproj" />
     <ProjectReference Include="..\GbsoDev.TechTest.Library.El\GbsoDev.TechTest.Library.El.csproj" />
-    <ProjectReference Include="..\GbsoDev.TechTest.Library.Mol\GbsoDev.TechTest.Library.Mol.csproj" />
+    <ProjectReference Include="..\GbsoDev.TechTest.Library.Dtol\GbsoDev.TechTest.Library.Dtol.csproj" />
   </ItemGroup>
 
 </Project>
