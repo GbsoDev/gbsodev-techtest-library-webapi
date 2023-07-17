@@ -1,4 +1,4 @@
-﻿namespace GbsoDev.TechTest.Library.MSTest
+﻿namespace GbsoDev.TechTest.Library.UnitTest
 {
 	public static class Utils
 	{

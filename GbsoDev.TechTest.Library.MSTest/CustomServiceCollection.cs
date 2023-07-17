@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace GbsoDev.TechTest.Library.MSTest
+namespace GbsoDev.TechTest.Library.UnitTest
 {
 	public class CustomServiceCollection : ServiceCollection, IServiceCollection
 	{

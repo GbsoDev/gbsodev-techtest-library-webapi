@@ -2,7 +2,7 @@
 using GbsoDev.TechTest.Library.El;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
+namespace GbsoDev.TechTest.Library.UnitTest.ServicesTest
 {
 	[TestClass]
 	public class EditorialServiceTest
@@ -15,7 +15,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			serviceCollection = TestInitializer.ServiceProvider;
 		}
 
-		[TestMethod("Register Ok - Registra editorial y retorna nueva instancia con id aumentado y CreateData establecido")]
+		[TestMethod("Register Ok - Se espera una editorial registrada")]
 		public void Register_Ok()
 		{
 			// Arrange
@@ -41,9 +41,10 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			// Assert
 			Utils.AreEquals(expected, actual);
 			Assert.IsTrue(actual.Id > 0, "El Id no fue asignado");
+			Assert.IsNotNull(actual.CreatedDate, "La fecha de creación puede ser null");
 		}
 
-		[TestMethod("Delete Ok - Elimina una editorial")]
+		[TestMethod("Delete Ok - No se espera nada")]
 		public void Delete_Ok()
 		{
 			// Arrange
@@ -61,7 +62,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			// No hay aserciones específicas ya que se espera que no ocurran errores durante la eliminación
 		}
 
-		[TestMethod("Update Ok - Actualizar una editorial y retorna la misma instancia")]
+		[TestMethod("Update Ok - Se espera una editorial actualizada")]
 		public void Update_Ok()
 		{
 			// Arrange
@@ -70,15 +71,14 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 				Id = 1,
 				Nombre = "Nombre Actualizado",
 				Sede = "Sede Actualizada",
-				CreatedDate = DateTime.Now
+				CreatedDate = default
 			};
 
 			var expected = new
 			{
 				input.Id,
 				input.Nombre,
-				input.Sede,
-				input.CreatedDate
+				input.Sede
 			};
 
 			var editorialService = new EditorialService(serviceCollection.BuildServiceProvider());
@@ -88,13 +88,14 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 
 			// Assert
 			Assert.IsNotNull(actual, "El resultado no puede ser null");
+			Assert.IsNotNull(actual.CreatedDate, "La fecha de creación puede ser null");
 			Utils.IsNotNulls(expected, actual);
 			Utils.AreEquals(expected, actual);
 		}
 
-		[TestMethod("GetById Ok - Obtener una editorial por su id")]
-		[DataRow(1, false)]
-		[DataRow(2, true)]
+		[DataRow(1, false, DisplayName = "GetById Ok - Se espera una editorial")]
+		[DataRow(2, true, DisplayName = "GetById Ok - Se espera un resultado null")]
+		[TestMethod]
 		public void GetById_Ok(int inputId, bool nullExpected)
 		{
 			// Arrange
@@ -124,7 +125,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			}
 		}
 
-		[TestMethod("List Ok - Obtener una lista de editoriales")]
+		[TestMethod("List Ok - Se espera una lista de editoriales")]
 		public void List_Ok()
 		{
 			// Arrange

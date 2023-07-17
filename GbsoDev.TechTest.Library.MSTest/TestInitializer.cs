@@ -4,12 +4,14 @@ using GbsoDev.TechTest.Library.El;
 using GbsoDev.TechTest.Library.Wal;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using System.Runtime.CompilerServices;
 
-namespace GbsoDev.TechTest.Library.MSTest
+namespace GbsoDev.TechTest.Library.UnitTest
 {
 	[TestClass]
 	public static class TestInitializer
 	{
+		private readonly static Random random = new Random();
 		/// <summary>
 		/// Proveedor de servicios por inyección
 		/// </summary>
@@ -35,7 +37,8 @@ namespace GbsoDev.TechTest.Library.MSTest
 		{
 			return services
 				.CustomAddScoped(BuildAutorDal())
-				.CustomAddScoped(BuildEditorialDal());
+				.CustomAddScoped(BuildEditorialDal())
+				.CustomAddScoped(BuildLibroDal());
 		}
 
 		public static IAutorDal BuildAutorDal()
@@ -55,18 +58,13 @@ namespace GbsoDev.TechTest.Library.MSTest
 			autorDalMock.Setup(x => x.Update(It.IsAny<Autor>()))
 			.Returns<Autor>((input) =>
 			{
+				input.CreatedDate = DateTime.Now;
 				return input;
 			});
 			autorDalMock.Setup(x => x.GetById(It.IsAny<int>()))
 				.Returns<int>((id) =>
 				{
-					var autor = new Autor()
-					{
-						Id = 1,
-						Nombre = "Gerson Brain",
-						Apellidos = "Sánchez Ospina",
-						CreatedDate = DateTime.Now,
-					};
+					var autor = GetAutor(1);
 					return id == autor.Id ? autor : null;
 				});
 			autorDalMock.Setup(x => x.List())
@@ -94,18 +92,13 @@ namespace GbsoDev.TechTest.Library.MSTest
 			editorialDalMock.Setup(x => x.Update(It.IsAny<Editorial>()))
 				.Returns<Editorial>((input) =>
 				{
+					input.CreatedDate = DateTime.Now;
 					return input;
 				});
 			editorialDalMock.Setup(x => x.GetById(It.IsAny<int>()))
 				.Returns<int>((id) =>
 				{
-					var editorial = new Editorial()
-					{
-						Id = 1,
-						Nombre = "Nombre de la Editorial",
-						Sede = "Sede de la Editorial",
-						CreatedDate = DateTime.Now,
-					};
+					var editorial = GetEditorial(1);
 					return id == editorial.Id ? editorial : null;
 				});
 			editorialDalMock.Setup(x => x.List())
@@ -122,7 +115,6 @@ namespace GbsoDev.TechTest.Library.MSTest
 			libroDalMock.Setup(x => x.Register(It.IsAny<Libro>()))
 				.Returns<Libro>((input) =>
 				{
-					input.Id = 1;
 					input.CreatedDate = DateTime.Now;
 					return input;
 				});
@@ -133,29 +125,13 @@ namespace GbsoDev.TechTest.Library.MSTest
 			libroDalMock.Setup(x => x.Update(It.IsAny<Libro>()))
 				.Returns<Libro>((input) =>
 				{
+					input.CreatedDate = DateTime.Now;
 					return input;
 				});
 			libroDalMock.Setup(x => x.GetById(It.IsAny<long>()))
 				.Returns<long>((id) =>
 				{
-
-					var libro = new Libro()
-					{
-						Id = 1,
-						EditorialId = 1,
-						Editorial = new Editorial()
-						{
-							Id = 1,
-							Nombre = "Nombre de la Editorial",
-							Sede = "Sede de la Editorial",
-							CreatedDate = DateTime.Now,
-						},
-						Titulo = "Título del Libro",
-						Sinopsis = "Sinopsis del Libro",
-						NPaginas = "100",
-						CreatedDate = DateTime.Now,
-						LibroHasAutores = new List<AutorHasLibro>()
-					};
+					var libro = GetLibro(1);
 					return id == libro.Id ? libro : null;
 				});
 			libroDalMock.Setup(x => x.List())
@@ -166,77 +142,89 @@ namespace GbsoDev.TechTest.Library.MSTest
 			return libroDalMock.Object;
 		}
 
+		private static Autor GetAutor(int id)
+		{
+			var autor = new Autor
+			{
+				Id = id,
+				Nombre = "Nombre_" + id.ToString(),
+				Apellidos = "Apellidos_" + id.ToString(),
+				CreatedDate = DateTime.Now.AddYears(random.Next(-10, 10)).AddDays(random.Next(-10, 10))
+			};
+			return autor;
+		}
+		
 		public static List<Autor> GetRandomAutores()
 		{
-			var createdDate = DateTime.Now;
-			var random = new Random();
 			var autores = new List<Autor>();
 			for (int i = 1; i <= 10; i++)
 			{
-				var autor = new Autor
-				{
-					Id = random.Next(1, 1000),
-					Nombre = "Nombre_" + i.ToString(),
-					Apellidos = "Apellidos_" + i.ToString(),
-					CreatedDate = createdDate.AddDays(random.Next(1, 30))
-				};
+				var autor = GetAutor(i);
 				autores.Add(autor);
 			}
 			return autores;
 		}
-		
+
+		private static Editorial GetEditorial(int id)
+		{
+			var editorial = new Editorial
+			{
+				Id = id,
+				Nombre = "Editorial_" + id.ToString(),
+				Sede = "Sede_" + id.ToString(),
+				CreatedDate = DateTime.Now.AddYears(random.Next(-10, 10)).AddDays(random.Next(-10, 10))
+			};
+			return editorial;
+		}
+
 		public static List<Editorial> GetRandomEditoriales()
 		{
-			var createdDate = DateTime.Now;
-			var random = new Random();
 			var editoriales = new List<Editorial>();
-			for (int i = 1; i <= 10; i++)
+			for (int i = 1; i <= 3; i++)
 			{
-				var editorial = new Editorial
-				{
-					Id = random.Next(1, 1000),
-					Nombre = "Editorial_" + i.ToString(),
-					Sede = "Sede_" + i.ToString(),
-					CreatedDate = createdDate.AddDays(random.Next(1, 30))
-				};
+				var editorial = GetEditorial(i);
 				editoriales.Add(editorial);
 			}
 			return editoriales;
 		}
 
+		private static Libro GetLibro(long id)
+		{
+			var editorial = GetEditorial(random.Next(1, 100));
+			var libro = new Libro
+			{
+				Id = id,
+				EditorialId = editorial.Id,
+				Editorial = editorial,
+				Titulo = "Título_" + id.ToString(),
+				Sinopsis = "Sinopsis_" + id.ToString(),
+				NPaginas = "100",
+				CreatedDate = DateTime.Now.AddYears(random.Next(-10, 10)).AddDays(random.Next(-10, 10)),
+				LibroHasAutores = new List<AutorHasLibro>()
+			};
+			return libro;
+		}
+
 		public static List<Libro> GetRandomLibros()
 		{
 			var autores = GetRandomAutores();
-			var createdDate = DateTime.Now;
 			var random = new Random();
 			var libros = new List<Libro>();
-			for (int i = 1; i <= 10; i++)
+			var firstId = random.NextInt64(1111111111111, 9999999999999);
+			for (long i = firstId; i < 10; i++)
 			{
-
-				var libro = new Libro
+				var libro = GetLibro(i);
+				var nAutores = random.Next(1, autores.Count);
+				for (int x = 1; x <= nAutores; x++)
 				{
-					Id = random.Next(1, 1000),
-					EditorialId = random.Next(1, 100),
-					Editorial = new Editorial()
+					libro.LibroHasAutores.Add(new AutorHasLibro
 					{
-						Id = 1,
-						Nombre = "Nombre de la Editorial",
-						Sede = "Sede de la Editorial",
-						CreatedDate = DateTime.Now,
-					},
-					Titulo = "Título_" + i.ToString(),
-					Sinopsis = "Sinopsis_" + i.ToString(),
-					NPaginas = "100",
-					CreatedDate = createdDate.AddDays(random.Next(1, 30)),
-					LibroHasAutores = new List<AutorHasLibro>()
-				};
-				libro.LibroHasAutores = autores.Select(x => new AutorHasLibro
-				{
-					AutorId = x.Id,
-					Autor = x,
-					LibroId = libro.Id,
-					Libro = libro
-				}).ToList();
+						AutorId = x,
+						Autor = GetAutor(x),
+						LibroId = libro.Id,
+						Libro = libro
+					});
+				}
 				libros.Add(libro);
 			}
 			return libros;

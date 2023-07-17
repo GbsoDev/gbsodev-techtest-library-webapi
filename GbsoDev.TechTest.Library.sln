@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.Mo
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B030C3B4-1320-4E4C-92FD-36C6FDFA606E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.MSTest", "GbsoDev.TechTest.Library.MSTest\GbsoDev.TechTest.Library.MSTest.csproj", "{FCC16CFA-CA41-43DC-8183-58EAA828C9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbsoDev.TechTest.Library.UnitTest", "GbsoDev.TechTest.Library.MSTest\GbsoDev.TechTest.Library.UnitTest.csproj", "{FCC16CFA-CA41-43DC-8183-58EAA828C9A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{74D9A912-58B6-4056-A866-AD845DC0FD84}"
 EndProject

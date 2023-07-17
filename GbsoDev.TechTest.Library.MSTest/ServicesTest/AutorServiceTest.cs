@@ -2,7 +2,7 @@ using GbsoDev.TechTest.Library.Bll;
 using GbsoDev.TechTest.Library.El;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
+namespace GbsoDev.TechTest.Library.UnitTest.ServicesTest
 {
 	[TestClass()]
 	public class AutorServiceTest
@@ -14,7 +14,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			serviceCollection = TestInitializer.ServiceProvider;
 		}
 
-		[TestMethod("Register Ok - Registra autor y retorna nueva instancia con id aumentado y CreateData establecido")]
+		[TestMethod("Register Ok - Se espera un autor registrado")]
 		public void Register_Ok()
 		{
 			//Arrange
@@ -36,10 +36,11 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			var actual = autorSerevice.Set(input);
 			//Assert
 			Utils.AreEquals(expected, actual);
+			Assert.IsNotNull(actual.CreatedDate, "La fecha de creación puede ser null");
 			Assert.IsTrue(actual.Id > 0, "el Id no fue asignado");
 		}
 
-		[TestMethod("Delete Ok - Elimina un autor")]
+		[TestMethod("Delete Ok - No se espera nada")]
 		public void Delete_Ok()
 		{
 			//Arrange
@@ -53,7 +54,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			//Assert
 		}
 
-		[TestMethod("Update Ok - Actualizar un autor y retorna la misma instancia")]
+		[TestMethod("Update Ok - Se espera un autor actualizado")]
 		public void Update_Ok()
 		{
 			//Arrange
@@ -62,15 +63,14 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 				Id = 1,
 				Nombre = "Nombre Actualizado",
 				Apellidos = "Apellidos Actualizados",
-				CreatedDate = DateTime.Now,
+				CreatedDate = default
 			};
 
 			var expected = new
 			{
 				input.Id,
 				input.Nombre,
-				input.Apellidos,
-				input.CreatedDate
+				input.Apellidos
 			};
 			
 			var autorService = new AutorService(serviceCollection.BuildServiceProvider());
@@ -80,13 +80,14 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			
 			//Assert
 			Assert.IsNotNull(actual, "El resultado no puede ser null");
+			Assert.IsNotNull(actual.CreatedDate, "La fecha de creación puede ser null");
 			Utils.IsNotNulls(expected, actual);
 			Utils.AreEquals(expected, actual);
 		}
 
-		[TestMethod("GetById Ok - Obtener un autor por su id")]
-		[DataRow(1, false)]
-		[DataRow(2, true)]
+		[DataRow(1, false, DisplayName = "GetById Ok - Se espera un autor")]
+		[DataRow(2, true, DisplayName = "GetById Ok - Se espera un resultado null")]
+		[TestMethod]
 		public void GetById_Ok(int inputId, bool nullExpected)
 		{
 			//Arrange
@@ -116,7 +117,7 @@ namespace GbsoDev.TechTest.Library.MSTest.ServicesTest
 			}
 		}
 
-		[TestMethod("List Ok - Obtener una lista")]
+		[TestMethod("List Ok - Se espera una lista de autors")]
 		public void GetBy_Ok()
 		{
 			//Arrange
