@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GbsoDev.TechTest.Library.Mol.Resources {
+namespace GbsoDev.TechTest.Library.Dtol.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GbsoDev.TechTest.Library.Mol.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GbsoDev.TechTest.Library.Mol.Resources.ModelResx", typeof(ModelResx).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GbsoDev.TechTest.Library.Dtol.Resources.ModelResx", typeof(ModelResx).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
